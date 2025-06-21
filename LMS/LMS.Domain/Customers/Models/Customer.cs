@@ -20,7 +20,7 @@ namespace LMS.Domain.Customers.Models
         public ICollection<Address> Addresses { get; set; } 
         public Cart Cart { get; set; } 
         public ICollection<BaseOrder> Orders { get; set; } 
-        public ICollection<Revenue> FinancialRevenues { get; set; }
+        public ICollection<Revenue> Revenues { get; set; }
 
 
         public Customer()
@@ -31,7 +31,7 @@ namespace LMS.Domain.Customers.Models
             Points = 0;
             Addresses = [];
             Orders = [];
-            FinancialRevenues = [];
+            Revenues = [];
         }
 
     }

@@ -1,5 +1,4 @@
 ﻿using LMS.Domain.LibraryManagement.Models.Relations;
-
 namespace LMS.Domain.LibraryManagement.Models.Publishers
 {
     public class Publisher

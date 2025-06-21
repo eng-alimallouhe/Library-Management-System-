@@ -45,7 +45,8 @@ namespace LMS.Domain.Identity.Models
 
         //Navigation Property:
         public Role Role { get; set; }
-
+        public OtpCode? OtpCode { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
 
         public User()
         {
@@ -57,6 +58,7 @@ namespace LMS.Domain.Identity.Models
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Role = null!;
+            Notifications = [];
         }
     }
 

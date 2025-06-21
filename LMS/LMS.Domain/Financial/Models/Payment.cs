@@ -9,6 +9,7 @@ namespace LMS.Domain.Financial.Models
 
         public Guid EmployeeId { get; set; }
 
+
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public string Reasone { get; set; } = string.Empty;
@@ -19,6 +20,8 @@ namespace LMS.Domain.Financial.Models
         public bool IsActive { get; set; }
 
         public Employee Employee { get; set; }
+
+
 
         public Payment()
         {

@@ -1,0 +1,51 @@
+/* src/app/components/hr/departments/update-department/update-department.component.css */
+
+/* إعادة استخدام أنماط الـ modal من AddDepartmentComponent */
+.update-department-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--backdrop-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+}
+
+.update-department-modal-content {
+    background-color: var(--secondary-background-color);
+    width: 50vw;
+    height: auto;
+    max-height: 98vh;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    text-align: center;
+    color: var(--text-color);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.form-conatiner {
+    height: auto;
+}
+
+.buttons-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.submit-wrapper {
+    width: 45%;
+}
+
+@media (max-width: 991px) {
+    .update-department-modal-content {
+        width: 98vw;
+    }
+}

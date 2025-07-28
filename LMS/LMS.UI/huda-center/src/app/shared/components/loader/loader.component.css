@@ -1,0 +1,96 @@
+/*Circular Loader*/
+.circle-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: #666;
+    font-size: 16px;
+    margin-top: 50px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.circle-container p {
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+.circle-container svg {
+    width: 3.25em;
+    transform-origin: center;
+    animation: rotate4 2s linear infinite;
+}
+
+circle {
+    fill: none;
+    stroke: var(--primary-color);
+    stroke-width: 2;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash4 {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -35px;
+    }
+
+    100% {
+        stroke-dashoffset: -125px;
+    }
+}
+
+
+
+
+/*Bar Loader*/
+/* From Uiverse.io by satyamchaudharydev */
+.loader {
+    display: block;
+    --height-of-loader: 4px;
+    --loader-color: var(--primary-color);
+    height: var(--height-of-loader);
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: relative;
+    height: 5px;
+}
+
+.loader::before {
+    content: "";
+    position: absolute;
+    background: var(--loader-color);
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    border-radius: 30px;
+    animation: moving 1s ease-in-out infinite;
+    ;
+}
+
+@keyframes moving {
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+        right: 0;
+        left: unset;
+    }
+}

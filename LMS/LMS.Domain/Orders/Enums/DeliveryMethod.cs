@@ -2,7 +2,7 @@
 {
     public enum DeliveryMethod
     {
-        InStorePickup,
-        HomeDelivery
+        InStorePickup = 0,
+        HomeDelivery = 1
     }
 }

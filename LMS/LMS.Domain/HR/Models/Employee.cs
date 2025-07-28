@@ -1,14 +1,16 @@
 ﻿using LMS.Domain.Financial.Models;
 using LMS.Domain.Identity.Models;
 using LMS.Domain.Orders.Models;
-using Microsoft.VisualBasic;
 
 namespace LMS.Domain.HR.Models
 {
     public class Employee : User
     {
         public DateTime HireDate { get; set; }
+        
         public decimal BaseSalary { get; set; }
+        
+        public byte[] FaceFeatureVector { get; set; } = new byte[0];
 
 
         //Navigation Property:
@@ -19,9 +21,9 @@ namespace LMS.Domain.HR.Models
         public ICollection<Leave> Leaves { get; set; }  
         public ICollection<Salary> Salaries { get; set; }  
         public LeaveBalance LeaveBalance { get; set; }
-        public ICollection<BaseOrder> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
         public ICollection<Revenue> Revenues { get; set; }
-
+        
 
         public Employee()
         {
@@ -33,6 +35,7 @@ namespace LMS.Domain.HR.Models
             Salaries = [];
             Orders = [];
             Revenues = [];
+            HireDate = DateTime.UtcNow;
             LeaveBalance = null!;
         }
     }

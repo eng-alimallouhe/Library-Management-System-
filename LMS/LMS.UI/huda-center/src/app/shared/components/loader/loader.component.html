@@ -1,0 +1,8 @@
+<div *ngIf="type === 'circle'" class="circle-container">
+    <svg class="loader-circle" viewBox="25 25 50 50">
+        <circle r="20" cy="50" cx="50"></circle>
+    </svg>
+    <p>{{ 'COMMON.LOADING_DATA' | translate }}</p>
+</div>
+
+<div *ngIf="type === 'bar'" [ngStyle]="{width: '100%'}" class="loader"></div>

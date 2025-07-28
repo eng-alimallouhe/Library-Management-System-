@@ -2,7 +2,16 @@
 {
     public enum LeaveType
     {
-        Paid,
-        Unpaid
+        Annual,
+        Sick,
+        Unpaid,
+        Maternity,
+        Paternity,
+        Marriage,
+        Death,
+        Study,
+        Hajj,
+        OfficialLeave,
+        Other
     }
 }

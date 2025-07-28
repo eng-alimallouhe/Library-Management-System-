@@ -13,8 +13,9 @@
         public decimal Amount { get; set; }
         public string DecisionFileUrl { get; set; } = string.Empty;
         public string Reason { get; set; } = string.Empty;
-        public DateTime DecisionDate { get; set; }
-        public bool IsApplied { get; set; }
+        public DateTime DecisionDate { get; set; } = DateTime.UtcNow;
+        public bool IsApplied { get; set; } = false;
+        public bool IsApproved { get; set; } = false;
 
 
         //Soft delete

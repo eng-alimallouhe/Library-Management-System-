@@ -19,7 +19,7 @@ namespace LMS.Domain.Customers.Models
         public LoyaltyLevel Level { get; set; }
         public ICollection<Address> Addresses { get; set; } 
         public Cart Cart { get; set; } 
-        public ICollection<BaseOrder> Orders { get; set; } 
+        public ICollection<Order> Orders { get; set; } 
         public ICollection<Revenue> Revenues { get; set; }
 
 

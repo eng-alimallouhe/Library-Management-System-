@@ -1,0 +1,235 @@
+<!-- src/app/components/hr/leaves/leaves-list/leaves-list.component.html -->
+
+
+<!-- Alert Component for general messages -->
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+(alertClosed)="onAlertClosed()">
+</app-alert>
+
+<div class="page-content-wrapper">
+    <div class="employees-container">
+        <app-loader type="circle" *ngIf="isLoadingLeaves || isLoadingDepartments"></app-loader>
+        <div class="table-container" *ngIf="leavesPage$ | async as leavesPage">
+            <div>
+                <div *ngIf="leavesPage.items && leavesPage.items.length > 0; else noDataFound">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>{{ 'HR.LEAVES.LEAVES.LIST.EMPLOYEE_NAME' | translate }}</th>
+                                    <th>{{ 'HR.LEAVES.LEAVES.LIST.START_DATE' | translate }}</th>
+                                    <th>{{ 'HR.LEAVES.LEAVES.LIST.END_DATE' | translate }}</th>
+                                    <th>{{ 'HR.LEAVES.LEAVES.LIST.LEAVE_TYPE' | translate }}</th>
+                                    <th>{{ 'HR.LEAVES.LEAVES.LIST.LEAVE_STATUS' | translate }}</th>
+                                    <th>{{ 'HR.LEAVES.LEAVES.LIST.IS_PAID' | translate }}</th>
+                                    <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leave of leavesPage.items">
+                                    <td attr.data-label="{{ 'HR.LEAVES.LEAVES.LIST.EMPLOYEE_NAME' | translate }}">{{
+                                        leave.employeeName }}</td>
+                                    <td attr.data-label="{{ 'HR.LEAVES.LEAVES.LIST.START_DATE' | translate }}">{{
+                                        leave.startDate | localDate }}</td>
+                                    <td attr.data-label="{{ 'HR.LEAVES.LEAVES.LIST.END_DATE' | translate }}">{{
+                                        leave.endDate | localDate }}</td>
+                                    <td attr.data-label="{{ 'HR.LEAVES.LEAVES.LIST.LEAVE_TYPE' | translate }}">
+                                        {{ ('HR.LEAVES.LEAVES.TYPE.' + (leave.leaveType | uppercase)) | translate }}
+                                    </td>
+                                    <td attr.data-label="{{ 'HR.LEAVES.LEAVES.LIST.LEAVE_STATUS' | translate }}">
+                                        {{ ('HR.LEAVES.LEAVES.STATUS.' + (leave.leaveStatus | uppercase)) | translate }}
+                                    </td>
+                                    <td attr.data-label="{{ 'HR.LEAVES.LEAVES.LIST.IS_PAID' | translate }}">
+                                        {{ leave.isPaid ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+                                    </td>
+                                    <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                        <button class="action-button view-button"
+                                            [routerLink]="['/app/hr/leaves', leave.leaveId]">
+                                            <i class="material-icons">visibility</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div class="pagination-container">
+                        <button class="pagination-btn" (click)="getPreviousPage()"
+                            [disabled]="!leavesPage.hasPrevious || isLoadingLeaves">
+                            « {{ 'COMMON.PREVIOUS_PAGE' | translate }}
+                        </button>
+
+                        <ng-container *ngIf="leavesPage">
+                            <ng-container
+                                *ngIf="getPageNumbers(leavesPage.currentPage, leavesPage.totalPages, 5) as pages">
+                                <span *ngFor="let page of pages">
+                                    <button (click)="goToPage(page)" [class.active]="page === leavesPage.currentPage"
+                                        class="pagination-btn">
+                                        {{ page }}
+                                    </button>
+                                </span>
+
+                                <span *ngIf="pages[pages.length - 1] < leavesPage.totalPages">...</span>
+                                <button *ngIf="pages[pages.length - 1] < leavesPage.totalPages"
+                                    (click)="goToPage(leavesPage.totalPages)" class="pagination-btn">
+                                    {{ leavesPage.totalPages }}
+                                </button>
+                            </ng-container>
+                        </ng-container>
+
+                        <button class="pagination-btn" (click)="getNextPage()"
+                            [disabled]="!leavesPage.hasNext || isLoadingLeaves">
+                            {{ 'COMMON.NEXT_PAGE' | translate }} »
+                        </button>
+                    </div>
+                </div>
+
+                <ng-template #noDataFound>
+                    <div class="no-data-message">
+                        <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters Sidebar -->
+    <div [class.filters-overlay]="isSmallScreen" [class.show-overlay]="showFilters && isSmallScreen">
+        <div class="filters-sidebar-section">
+            <form [formGroup]="filterForm" class="filters-form">
+                <div class="filters-container-wrapper">
+                    <!-- Date Range Filter -->
+                    <div class="filter-category" [class.collapsed]="!isDateRangeExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleDateRange()">{{'FILTERS.DATE_RANGE' |
+                                translate}}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearDateRangeFilter()">
+                                    <i class="material-icons">close</i> </button>
+                                <i class="material-icons arrow-icon" (click)="toggleDateRange()"
+                                    [class.rotated]="isDateRangeExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <input type="date" id="from" formControlName="from"
+                                placeholder="{{ 'EMPLOYEES.FROM_DATE' | translate }}">
+                            <input type="date" id="to" formControlName="to"
+                                placeholder="{{ 'EMPLOYEES.TO_DATE' | translate }}">
+                        </div>
+                    </div>
+
+                    <!-- Status Filter -->
+                    <div class="filter-category" [class.collapsed]="!isApprovedExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleStatusFilter()">{{
+                                'HR.LEAVES.LEAVES.LIST.LEAVE_STATUS' | translate }}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearStatusFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleStatusFilter()"
+                                    [class.rotated]="isApprovedExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <select formControlName="status">
+                                <option [ngValue]="null" disabled selected>
+                                    {{ 'COMMON.SELECT_OPTION' | translate }}
+                                </option>
+                                <option [ngValue]="null">{{ 'COMMON.ALL' | translate }}</option>
+                                <option *ngFor="let option of leaveStatusOptions" [ngValue]="option.value">
+                                    {{ option.label | translate }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Type Filter -->
+                    <div class="filter-category" [class.collapsed]="!isTypeExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleTypeFilter()">{{
+                                'HR.LEAVES.LEAVES.LIST.LEAVE_TYPE' |
+                                translate }}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearTypeFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleTypeFilter()"
+                                    [class.rotated]="isTypeExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <select formControlName="type">
+                                <option [ngValue]="null" disabled selected>
+                                    {{ 'COMMON.SELECT_OPTION' | translate }}
+                                </option>
+                                <option [ngValue]="null">{{ 'COMMON.ALL' | translate }}</option>
+                                <option *ngFor="let option of leaveTypeOptions" [ngValue]="option.value">
+                                    {{ option.label | translate }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Is Paid Filter -->
+                    <div class="filter-category" [class.collapsed]="!isPaidExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleIsPaidFilter()">{{
+                                'HR.LEAVES.LEAVES.LIST.IS_PAID' |
+                                translate }}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearIsPaidFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleIsPaidFilter()"
+                                    [class.rotated]="isPaidExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <select formControlName="isPaid">
+                                <option [ngValue]="null" disabled selected>
+                                    {{ 'COMMON.SELECT_OPTION' | translate }}
+                                </option>
+                                <option [ngValue]="null">{{ 'COMMON.ALL' | translate }}</option>
+                                <option [ngValue]="true">{{ 'COMMON.YES' | translate }}</option>
+                                <option [ngValue]="false">{{ 'COMMON.NO' | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Order By Filter -->
+                    <div class="filter-category" [class.collapsed]="!isOrderExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleOrder()">{{ 'FILTERS.ORDER_BY' | translate
+                                }}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearOrderFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleOrder()"
+                                    [class.rotated]="isOrderExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <select formControlName="orderBy">
+                                <option *ngFor="let option of leaveOrderByOptions" [ngValue]="option.value">
+                                    {{ option.label | translate }}
+                                </option>
+                            </select>
+                            <select formControlName="isDesc">
+                                <option [ngValue]="true">{{ 'COMMON.DESCENDING' | translate }}</option>
+                                <option [ngValue]="false">{{ 'COMMON.ASCENDING' | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<button class="floating-filter-button" (click)="toggleFilters()" title="{{ 'COMMON.FILTERS' | translate }}">
+    <i class="material-icons">settings</i>
+</button>

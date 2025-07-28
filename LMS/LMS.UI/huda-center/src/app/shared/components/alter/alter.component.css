@@ -1,0 +1,68 @@
+/* src/app/shared/components/alter/alter.component.css */
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* خلفية معتمة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    /* تأكد أن يكون أعلى من كل الـ modals الأخرى */
+}
+
+.modal-content {
+    background-color: var(--secondary-background-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 2px solid transparent;
+    /* إضافة حدود لتغيير اللون */
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    /* لون العنوان */
+}
+
+.modal-content p {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.close-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+    background-color: var(--primary-dark-color);
+}
+
+
+.modal-content.success-modal {
+    border-color: var(--accent-color);
+}
+
+
+.modal-content.error-modal {
+    border-color: var(--error-color);
+}

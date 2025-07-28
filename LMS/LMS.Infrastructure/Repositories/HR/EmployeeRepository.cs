@@ -21,7 +21,7 @@ namespace LMS.Infrastructure.Repositories.HR
                 throw new Exception("Not found");
             }
 
-            employee.IsDeleted = false;
+            employee.IsDeleted = true;
             _context.Employees.Update(employee);
             await _context.SaveChangesAsync();
         }

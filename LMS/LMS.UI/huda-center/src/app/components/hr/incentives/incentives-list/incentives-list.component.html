@@ -1,0 +1,244 @@
+<div class="page-content-wrapper">
+    <div class="employees-container">
+        <app-loader type="circle" *ngIf="isLoadingIncentives || isLoadingDepartments"></app-loader>
+        <div class="table-container" *ngIf="incentivesPage$ | async as incentivesPage">
+            <div>
+                <div *ngIf="incentivesPage.items && incentivesPage.items.length > 0; else noDataFound">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>{{ 'HR.INCENTIVES.LIST.EMPLOYEE_NAME' | translate }}</th>
+                                    <th>{{ 'HR.INCENTIVES.LIST.AMOUNT' | translate }}</th>
+                                    <th>{{ 'HR.INCENTIVES.LIST.REASON' | translate }}</th>
+                                    <th>{{ 'HR.INCENTIVES.LIST.DATE' | translate }}</th>
+                                    <th>{{ 'HR.INCENTIVES.LIST.IS_PAID' | translate }}</th>
+                                    <th>{{ 'HR.INCENTIVES.LIST.IS_APPROVED' | translate }}</th>
+                                    <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let incentive of incentivesPage.items">
+                                    <td attr.data-label="{{ 'HR.INCENTIVES.LIST.EMPLOYEE_NAME' | translate }}">{{
+                                        incentive.employeeName }}</td>
+                                    <td attr.data-label="{{ 'HR.INCENTIVES.LIST.AMOUNT' | translate }}">{{
+                                        incentive.amount | currency:'USD':'symbol':'1.2-2' }}</td>
+                                    <td attr.data-label="{{ 'HR.INCENTIVES.LIST.REASON' | translate }}">{{
+                                        incentive.reason }}</td>
+                                    <td attr.data-label="{{ 'HR.INCENTIVES.LIST.DATE' | translate }}">{{ incentive.decisionDate
+                                        | localDate }}</td>
+                                    <td attr.data-label="{{ 'HR.INCENTIVES.LIST.IS_PAID' | translate }}">
+                                        {{ incentive.isPaid ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+                                    </td>
+                                    <td attr.data-label="{{ 'HR.INCENTIVES.LIST.IS_APPROVED' | translate }}">
+                                        {{ incentive.isApproved ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate)
+                                        }}
+                                    </td>
+                                    <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                        <button class="action-button view-button"
+                                            [routerLink]="['/app/hr/incentives', incentive.incentiveId]">
+                                            <i class="material-icons">visibility</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div class="pagination-container">
+                        <button class="pagination-btn" (click)="getPreviousPage()"
+                            [disabled]="!incentivesPage.hasPrevious || isLoadingIncentives">
+                            « {{ 'COMMON.PREVIOUS_PAGE' | translate }}
+                        </button>
+
+                        <ng-container *ngIf="incentivesPage">
+                            <ng-container
+                                *ngIf="getPageNumbers(incentivesPage.currentPage, incentivesPage.totalPages, 5) as pages">
+                                <span *ngFor="let page of pages">
+                                    <button (click)="goToPage(page)"
+                                        [class.active]="page === incentivesPage.currentPage" class="pagination-btn">
+                                        {{ page }}
+                                    </button>
+                                </span>
+
+                                <span *ngIf="pages[pages.length - 1] < incentivesPage.totalPages">...</span>
+                                <button *ngIf="pages[pages.length - 1] < incentivesPage.totalPages"
+                                    (click)="goToPage(incentivesPage.totalPages)" class="pagination-btn">
+                                    {{ incentivesPage.totalPages }}
+                                </button>
+                            </ng-container>
+                        </ng-container>
+
+                        <button class="pagination-btn" (click)="getNextPage()"
+                            [disabled]="!incentivesPage.hasNext || isLoadingIncentives">
+                            {{ 'COMMON.NEXT_PAGE' | translate }} »
+                        </button>
+                    </div>
+                </div>
+
+                <ng-template #noDataFound>
+                    <div class="no-data-message">
+                        <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters Sidebar -->
+    <div [class.filters-overlay]="isSmallScreen" [class.show-overlay]="showFilters && isSmallScreen">
+        <div class="filters-sidebar-section">
+            <form [formGroup]="filterForm" class="filters-form">
+                <div class="filters-container-wrapper">
+                    <div class="filter-category" [class.collapsed]="!isDateRangeExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleDateRange()">{{'FILTERS.DATE_RANGE' |
+                                translate}}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearDateRangeFilter()">
+                                    <i class="material-icons">close</i> </button>
+                                <i class="material-icons arrow-icon" (click)="toggleDateRange()"
+                                    [class.rotated]="isDateRangeExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <input type="date" id="from" formControlName="from"
+                                placeholder="{{ 'EMPLOYEES.FROM_DATE' | translate }}">
+                            <input type="date" id="to" formControlName="to"
+                                placeholder="{{ 'EMPLOYEES.TO_DATE' | translate }}">
+                        </div>
+                    </div>
+
+                    <!-- فلتر السجلات النشطة فقط -->
+                    <div class="filter-category" [class.collapsed]="!isOnlyActiveExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleOnlyActive()">{{'FILTERS.ACTIVE_RECORDS' |
+                                translate}}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button"
+                                    (click)="clearOnlyActiveRegistersFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleOnlyActive()"
+                                    [class.rotated]="isOnlyActiveExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <label class="checkbox-label">
+                                <input type="checkbox" formControlName="onlyActiveRegisters">
+                                {{ 'FILTERS.ONLY_ACTIVE' | translate }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-category" [class.collapsed]="!isDepartmentsExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleDepartments()">{{'HR.DEPARTMENTS.TITLE' |
+                                translate}}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearDepartmentIdsFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleDepartments()"
+                                    [class.rotated]="isDepartmentsExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content checkbox-list">
+                            <div *ngIf="availableDepartments.length > 0; else noDepartments">
+                                <div *ngFor="let dep of availableDepartments" class="checkbox-item">
+                                    <input type="checkbox" [id]="'dep-' + dep.departmentId" [value]="dep.departmentId"
+                                        [checked]="isDepartmentSelected(dep.departmentId)"
+                                        (change)="onDepartmentCheckboxChange($event)">
+                                    <label [for]="'dep-' + dep.departmentId">{{ dep.departmentName }}</label>
+                                </div>
+                            </div>
+                            <ng-template #noDepartments>
+                                <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                    <!-- فلتر IsPaid (بدلاً من IsApplied) -->
+                    <div class="filter-category" [class.collapsed]="!isPaidExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleIsPaidFilter()">{{ 'HR.FILTERS.IS_PAID'
+                                | translate }}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearIsPaidFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleIsPaidFilter()"
+                                    [class.rotated]="isPaidExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <select formControlName="byIsPaid">
+                                <option [ngValue]="null" disabled selected>
+                                    {{ 'COMMON.SELECT_OPTION' | translate }}
+                                </option>
+                                <option [ngValue]="null">{{ 'COMMON.ALL' | translate }}</option>
+                                <option [ngValue]="true">{{ 'COMMON.YES' | translate }}</option>
+                                <option [ngValue]="false">{{ 'COMMON.NO' | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-category" [class.collapsed]="!isApprovedExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleIsApprovedFilter()">{{
+                                'HR.FILTERS.IS_APPROVED' | translate }}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearIsApprovedFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleIsApprovedFilter()"
+                                    [class.rotated]="isApprovedExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <select formControlName="byIsApproved">
+                                <option [ngValue]="null" disabled selected>
+                                    {{ 'COMMON.SELECT_OPTION' | translate }}
+                                </option>
+                                <option [ngValue]="null">{{ 'COMMON.ALL' | translate }}</option>
+                                <option [ngValue]="true">{{ 'COMMON.YES' | translate }}</option>
+                                <option [ngValue]="false">{{ 'COMMON.NO' | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-category" [class.collapsed]="!isOrderExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleOrder()">{{ 'COMMON.ORDER_BY' | translate
+                                }}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearOrderFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleOrder()"
+                                    [class.rotated]="isOrderExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <select formControlName="orderBy">
+                                <option *ngFor="let option of incentiveOrderByOptions" [ngValue]="option.value">
+                                    {{ option.label | translate }}
+                                </option>
+                            </select>
+                            <select formControlName="isDesc">
+                                <option [ngValue]="true">{{ 'COMMON.DESCENDING' | translate }}</option>
+                                <option [ngValue]="false">{{ 'COMMON.ASCENDING' | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<button class="floating-filter-button" (click)="toggleFilters()" title="{{ 'COMMON.FILTERS' | translate }}">
+    <i class="material-icons">settings</i>
+</button>

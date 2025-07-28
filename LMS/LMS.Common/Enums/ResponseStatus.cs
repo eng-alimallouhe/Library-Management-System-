@@ -2,60 +2,85 @@
 {
     public enum ResponseStatus
     {
-        // User ResponseStatus for error: 
+        //Authentication StatusKey:
+        //AUTHENTICATION.
+        WEAK_PASSWORD,
+        ALREADY_EXISTING_ACCOUNT,
+        ACTIVATION_FAILED,
         ACCOUNT_NOT_FOUND,
-        BLOCKED_USER,
+        AUTHENTICATION_SUCCESS,
+        AUTHENTICATION_FAILED,
+        INVALID_TOKEN,
+        ACTIVATION_SUCCESS,
+        EXPIRED_SESSION, // when the regenerate for  the refresh token be failed 
+        FILED_ATTEMPT,
+        MAX_ATTEMPT,
+        UNVERIFIED_ACCOUNT,
         LOCKED_ACCOUNT,
         MAX_LOGIN_ATTEMPTS,
-        UNVERIFIED_ACCOUNT,
-        EXPIRED_SESSION,
-        EXISTING_ACCOUNT,
-        WEAK_PASSWORD,
-        AUTHENTICATION_FAILED,
-        SAME_PASSWORD,
-        ACTIVATION_SUCCESS,
-        ACTIVATION_FAILED,
-        MORE_STEP_REQUERD,
-        UNVALIDE_TOKEN,
         USER_NAME_AVALIABLE,
         USER_NAME_UNAVALIABLE,
+        EXISTING_ACCOUNT,
+        TWO_FACTOR_REQUIRED,
 
 
-        // User ResponseStatus for success: 
-        AUTHENTICATION_SUCCESS,
-
-
-        // OTP Code ResponseStatus for errors: 
-        CODE_IS_EXPIRED,
-        CODE_NOT_FOUND,
-        HIT_MAX_ATTEMPTS,
-        FAILED_ATTEMPT,
-        CODE_ERROR,
-        SUCCESSS_CODE_SEND,
-        VERIFY_SUCCESS,
+        //OTPCODE:
         INDEFINITE_TIME_PERIOD,
-        WRONGE_CODE_TYPE,
+        SUCCESSS_CODE_SEND,
+        EXPIRED_CODE,
+        INVALID_CODE,
+        EMAIL_SEND_FAILED,
 
 
-        // Common ResponseStatus for errors:
-        UPDATE_INFORMATION_ERROR,
-        ADD_ERROR,
-        DELETE_ERROR,
-        BACK_ERROR,
-        SOURCE_NOT_FOUND,
-        FILE_NOT_FOUND,
+
+
+
+        // Common ResponseStatusKey for errors:
+        UNKNOWN_ERROR,
+        DELETE_COMPLETED,
         TASK_COMPLETED,
-        HTTP_RESPONSE_ERROR,
+        ADD_COMPLETED,
+        UPDATE_COMPLETED,
+        UPLOAD_FAILED,
+        UPLOAD_SUCCESS,
+        SOURCE_NOT_FOUND,
+        UNABLE_DELETE_NOT_FOUNDED_ELEMENT,
+        UNABLE_UPDATE_NOT_FOUNDED_ELEMENT,
+        AUTHORIZATION_REQUIERD,
+        RECORD_STATUS_CONNOT_BE_MODIFIED,
+        STATUS_ALREADY_SET,
+        UNABLE_DELETE_ELEMENT,
+        RECORD_NOT_FOUND,
+        ALREADE_EXIST_RECORD,
 
 
-        //Department Response:
+
+        //HR 
+        //DEPARTMENTS 
         DEPARTMENT_NOT_FOUNDED,
+
+
+        //HR
+        //EMPLOYEES
+        EMPLOYEE_NOT_FOUNDED,
         EXISTING_APPOINTMENT,
-        USED_REPOSNSIBILITY,
-        SAME_DETAIL, // when the new department reponsibilty is same old 
+        FACE_EXTRACTION_FAILED, //when we try to extract the face vector from the provided iamge 
 
 
-        //
-        UNVALIDE_PARAMETERS // when the request has a wrong parameters
+        //HR
+        //LEAVES:
+        BALANCE_NOT_FOUNDED,
+        BALANCE_NOT_ENOUGH,
+        INVALID_DATE_RANGE,
+
+
+        //HR
+        //ATTENDANCES
+        FACE_NOT_SAME,
+        CANNAT_CHECK_IN,
+        CANNAT_CHECK_OUT,
+        CHECKING_SUCCESS,
+        ALREADY_CHECKINED_OUT,
+        ALREADY_CHECKINED_IN
     }
 }

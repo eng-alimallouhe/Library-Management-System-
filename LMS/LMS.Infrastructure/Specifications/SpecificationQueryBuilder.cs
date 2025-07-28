@@ -32,9 +32,10 @@ namespace LMS.Infrastructure.Specifications
             {
 
                 query = (specification.Take.HasValue && specification.Skip.HasValue) ?
-                            query.Skip((specification.Skip.Value-1) * specification.Take.Value)
-                            .Take(specification.Take.Value) :
+                            query.Skip((specification.Skip.Value-1) * specification.Take.Value) :
                             query;
+
+                query = specification.Take.HasValue ? query.Take(specification.Take.Value) : query;
             }
 
 

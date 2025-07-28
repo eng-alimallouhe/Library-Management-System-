@@ -1,0 +1,154 @@
+:root {
+    /* ==== Theme Colors ==== */
+    --primary-color: #3f4d67;
+    --secondary-color: #ecc605;
+    --accent-color: #00a180;
+    --error-color: #f44336;
+    --buttons-text-color: #f4f7fa;
+
+    --backdrop-color: rgba(0, 0, 0, 0.5);
+    --backdrop-darker-color: rgba(0, 0, 0, 0.85);
+
+    --table-header-background: #3f4d67;
+    --table-header-color: #f4f7fa;
+
+    --ball-primary-color: #28a745;
+    --ball-secondary-color: #ecc605;
+
+    /* ==== Backgrounds ==== */
+    --primary-background-color: #f4f7fa;
+    --secondary-background-color: #ffffff;
+    --background-light: #f8f9fa;
+
+    /* ==== Text ==== */
+    --text-color: #343a40;
+    --text-color-light: #ffffff;
+    --text-color-dark: #222;
+
+    /* ==== Navbar & Menu ==== */
+    --navbar-bg: #ffffff;
+    --navbar-text-color: #3f4d67;
+
+    --menu-bg: #ffffff;
+    --menu-text: #3f4d67;
+    --menu-hover-bg: rgba(63, 77, 103, 0.1);
+    --menu-active-bg: rgba(63, 77, 103, 0.15);
+
+    /* ==== Submenu ==== */
+    --submenu-bg: rgba(0, 0, 0, 0.03);
+    --submenu-item-hover-bg: rgba(63, 77, 103, 0.08);
+    --submenu-item-active-bg: rgba(63, 77, 103, 0.12);
+
+    /* ==== Search ==== */
+    --search-bg: #f1f3fa;
+    --search-text-color: #333;
+    --search-placeholder-color: #888;
+
+    /* ==== Misc ==== */
+    --border-color: #dee2e6;
+    --border-radius: 8px;
+    --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+
+    --light-accent: #87ccc7;
+    --white: #ffffff;
+
+    --hover-light-bg: rgba(63, 77, 103, 0.05);
+    --load-more-bg: #f1f1f1;
+    --load-more-hover-bg: #ddd;
+    --muted-text-color: #999;
+
+
+    /*Font sizes*/
+    --text-font-size: clamp(0.9rem, 3vw, 1rem);
+    --header2-font-size: clamp(1rem, 3vw, 1.20rem);
+    --header1-font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+}
+
+/* ==== Dark Mode Overrides ==== */
+.dark_mode {
+    --primary-color: #e0e0e0;
+    --secondary-color: #a0b4c2;
+    --buttons-text-color: #343a40;
+    --ball-color: #ecc605;
+
+
+    --table-header-background: #212224;
+    --table-header-color: #f4f7fa;
+
+    --primary-background-color: #212224;
+    --secondary-background-color: #2b2c2f;
+
+    --text-color: #e0e0e0;
+    --text-color-light: #fff;
+    --text-color-dark: #aaa;
+
+    --navbar-bg: #2b2c2f;
+    --navbar-text-color: #e0e0e0;
+
+    --menu-bg: #2b2c2f;
+    --menu-text: #e0e0e0;
+    --menu-hover-bg: rgba(255, 255, 255, 0.05);
+    --menu-active-bg: rgba(255, 255, 255, 0.1);
+
+    --submenu-bg: rgba(255, 255, 255, 0.03);
+    --submenu-item-hover-bg: rgba(255, 255, 255, 0.05);
+    --submenu-item-active-bg: rgba(255, 255, 255, 0.1);
+
+    --search-bg: #3a3b3e;
+    --search-text-color: #ccc;
+    --search-placeholder-color: #888;
+
+    --border-color: #444;
+    --box-shadow-light: 0 4px 12px rgba(255, 255, 255, 0.05);
+
+    --backdrop-color: rgba(0, 0, 0, 0.5);
+    --backdrop-darker-color: rgba(0, 0, 0, 0.75);
+
+
+    --hover-light-bg: rgba(255, 255, 255, 0.05);
+    --load-more-bg: #2e2f31;
+    --load-more-hover-bg: #3a3b3e;
+    --muted-text-color: #bbb;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+*:not(i){
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+/* font-family: "Tajawal", sans-serif;
+    font-weight: 400;
+    font-style: normal; */
+}
+
+
+i, span{
+    -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+}
+
+
+body {
+    margin: 0;
+    overflow-x:hidden;
+    background-color: var(--primary-background-color);
+    color: var(--text-color);
+    width: 100vw;
+}
+html, body { height: 100%; }
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

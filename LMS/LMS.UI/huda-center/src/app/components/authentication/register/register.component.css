@@ -1,0 +1,40 @@
+.preant-wrapper{
+    width: 100vw;
+    min-height: 99vh;
+    display: flex;
+}
+
+.left-section{
+    width: 60%;
+    height: 100%;
+}
+
+
+.right-section{
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    background-color: var(--search-bg);
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 100px;
+    justify-content:flex-end;
+}
+
+@media (max-width: 480px) {
+    .right-section {
+        display: none;
+        width: 0;
+    }
+
+    .left-section {
+        width: 100%;
+    }
+}
+
+
+@media (min-width: 481px) {
+    .left-section .hide{
+        display: none;
+    }
+}

@@ -1,0 +1,58 @@
+<app-alert [(visible)]="alertVisible" [message]="alertMessage"></app-alert>
+
+
+<div class="top-curve">
+</div>
+
+
+
+<div class="form-conatiner">
+    <div class="title-container title-container-normal">
+        <h1>{{ 'AUTHENTICATION.LOGIN.WELLCOM_MESSAGE' | translate }}</h1>
+        <p>{{ 'AUTHENTICATION.LOGIN.LOGIN_TO_USE' | translate }}</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="input-container">
+            <input type="text" id="email" formControlName="email" placeholder=" ">
+            <label for="email">{{'AUTHENTICATION.COMMON.EMAIL' | translate }}</label>
+
+            <span *ngIf="loginForm.get('email')?.errors as errors">
+                <span class="error"
+                    *ngIf="(loginForm.get('email')?.dirty || loginForm.get('email')?.touched) || isSubmited">
+                    {{customValidatorsService.getFirstErrorMessage('email', errors) | translate }}
+                </span>
+            </span>
+        </div>
+
+        <div class="input-container">
+            <input type="password" id="password" formControlName="password" placeholder=" ">
+            <label for="password">{{'AUTHENTICATION.COMMON.PASSWORD' | translate }}</label>
+
+            <span *ngIf="loginForm.get('password')?.errors as errors">
+                <span class="error"
+                    *ngIf="(loginForm.get('password')?.dirty || loginForm.get('password')?.touched) || isSubmited">
+                    {{customValidatorsService.getFirstErrorMessage('password', errors) | translate }}
+                </span>
+            </span>
+        </div>
+
+        <div class="button-container">
+            <input type="submit" [disabled]="isLoading"
+                value="{{isLoading ? ('PLEASE_WAIT' | translate) : ('AUTHENTICATION.LOGIN.LOG_BUTTON' | translate)}}">
+                <div *ngIf="isLoading" class="input-container">
+                    <app-loader class="parent-loader" type="bar" height="5px" width="100%" messageKey="COMMON.LOADING"></app-loader>
+                </div>
+        </div>
+
+        <p class="link">
+            {{'AUTHENTICATION.LOGIN.DO_NOT_HAVE_ACCOUNT' | translate }}
+            <a routerLink="/authentication/register">{{'AUTHENTICATION.REGISTER.SIGN_UP' | translate }}</a>
+        </p>
+
+        <p class="link" *ngIf="isFiledAttempt">
+            {{'AUTHENTICATION.LOGIN.FORGOT_PASSWORD' | translate }}
+            <a (click)="resetPassword()">{{'AUTHENTICATION.RESET_PASSWORD.FORGOT' | translate }}</a>
+        </p>
+    </form>
+</div>

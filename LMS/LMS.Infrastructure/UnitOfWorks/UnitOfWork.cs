@@ -1,4 +1,4 @@
-﻿using LMS.Domain.Abstractions.UnitOfWorks;
+﻿using LMS.Application.Abstractions.UnitOfWorks;
 using LMS.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -29,6 +29,11 @@ namespace LMS.Infrastructure.UnitOfWorks
         {
             if (_transaction is not null)
                 await _transaction.RollbackAsync();
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _context.SaveChangesAsync(cancellationToken);
         }
     }
 

@@ -9,14 +9,14 @@ namespace LMS.Infrastructure.Configurations.Orders
     {
         public void Configure(EntityTypeBuilder<Shipment> builder)
         {
-            builder.ToTable("Shipment");
+            builder.ToTable("Shipments");
 
             builder.Property(s => s.Cost)
                 .HasColumnType("DECIMAL(15,5)");
 
             builder.HasOne(dor => dor.Address)
-                    .WithOne()
-                    .HasForeignKey<Shipment>(s => s.AddressId)
+                    .WithMany()
+                    .HasForeignKey(s => s.AddressId)
                     .OnDelete(DeleteBehavior.Restrict)
                     .IsRequired();
 
@@ -25,8 +25,6 @@ namespace LMS.Infrastructure.Configurations.Orders
                     .HasForeignKey<Shipment>(s => s.OrderId)
                     .OnDelete(DeleteBehavior.Restrict)
                     .IsRequired();
-
-
         }
     }
 }

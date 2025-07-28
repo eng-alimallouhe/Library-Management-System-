@@ -2,7 +2,7 @@
 using LMS.Domain.Financial.Models;
 using LMS.Infrastructure.DbContexts;
 
-namespace LMS.Infrastructure.Repositories.OrderManagement
+namespace LMS.Infrastructure.Repositories.Financial
 {
     public class RevenueRepository : SoftDeletableRepository<Revenue>
     {

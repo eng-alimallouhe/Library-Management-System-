@@ -1,0 +1,109 @@
+.ball-shape {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 130px;
+    height: 50px;
+}
+
+.top-balls,
+.bottom-balls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50%;
+}
+
+.top-balls {
+    transform: translateX(8px);
+}
+
+.ball {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.bottom-balls .ball {
+    background-color: var(--secondary-color);
+}
+
+
+.ball-container {
+    position: fixed;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+}
+
+
+.top-right-container {
+    top: 0;
+    right: 0;
+}
+
+
+.bottum-left-container {
+    bottom: 0;
+    left: 0;
+}
+
+
+.bottum-right-container {
+    bottom: 0;
+    right: 0;
+}
+
+
+.ball-container .ball {
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+
+.top-right-container .ball {
+    transform: translate(50%, -50%);
+}
+
+
+.bottum-left-container .ball {
+    transform: translate(-50%, 50%);
+}
+
+
+.bottum-right-container .ball {
+    transform: translate(50%, 50%);
+}
+
+
+@media (max-width: 480px) {
+    .ball-container {
+        width: 75px;
+        height: 75px;
+    }
+
+    .ball-shape {
+        width: 50px;
+        height: 30px;
+    }
+
+    .ball-shape .ball {
+        width: 10px;
+        height: 10px;
+    }
+
+    .last-ball {
+        display: none;
+    }
+
+    .title-conatiner h1 {
+        font-size: 25px;
+    }
+
+    .title-conatiner p {
+        font-size: 18px;
+    }
+}

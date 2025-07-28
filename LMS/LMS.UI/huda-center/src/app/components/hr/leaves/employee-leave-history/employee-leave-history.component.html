@@ -1,0 +1,65 @@
+<!-- src/app/components/hr/employees/employee-leaves-history/employee-leaves-history.component.html -->
+<app-add-leave [(visible)]="isAddLeaveFormVisible" [employeeId]="employeeId"
+    (leaveAdded)="onLeaveAdded()"></app-add-leave>
+    
+<div class="add-button-wrapper">
+    <button class="add-button" (click)="showAddLeaveForm()">
+        <i class="material-icons">add</i>
+        {{ 'HR.LEAVES.ADD_LEAVE_REQUEST' | translate }}
+    </button>
+</div>
+
+<div class="page-content-wrapper">
+    <div class="table-container">
+        <app-loader *ngIf="isLoadingLeaves" type="circle"></app-loader>
+
+        <div *ngIf="leavesPage$ | async as leavesPage">
+            <div *ngIf="leavesPage.items && leavesPage.items.length > 0; else noDataFound">
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>{{ 'HR.LEAVES.LEAVES.LIST.EMPLOYEE_NAME' | translate }}</th>
+                                <th>{{ 'HR.LEAVES.START_DATE' | translate }}</th>
+                                <th>{{ 'HR.LEAVES.END_DATE' | translate }}</th>
+                                <th>{{ 'HR.LEAVES.TYPE' | translate }}</th>
+                                <th>{{ 'HR.LEAVES.STATUS' | translate }}</th>
+                                <th>{{ 'HR.LEAVES.IS_PAID' | translate }}</th>
+                                <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let leave of leavesPage.items">
+                                <td attr.data-label="{{ 'HR.LEAVES.EMPLOYEE_NAME' | translate }}">{{ leave.employeeName
+                                    }}</td>
+                                <td attr.data-label="{{ 'HR.LEAVES.START_DATE' | translate }}">{{ leave.startDate |
+                                    localDate:'shortDate' }}</td>
+                                <td attr.data-label="{{ 'HR.LEAVES.END_DATE' | translate }}">{{ leave.endDate |
+                                    localDate:'shortDate' }}</td>
+                                <td attr.data-label="{{ 'HR.LEAVES.TYPE' | translate }}">{{
+                                    ('HR.LEAVES.LEAVES.STATUS.' + (leave.leaveType | uppercase)) | translate }}</td>
+                                <td attr.data-label="{{ 'HR.LEAVES.STATUS' | translate }}">{{
+                                    ('HR.LEAVES.LEAVES.STATUS.' + (leave.leaveStatus | uppercase)) | translate }}</td>
+                                <td attr.data-label="{{ 'HR.LEAVES.IS_PAID' | translate }}">
+                                    {{ leave.isPaid ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+                                </td>
+                                <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                    <button class="action-button view-button"
+                                        (click)="navigateToLeaveDetails(leave.leaveId)">
+                                        <i class="material-icons">visibility</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <ng-template #noDataFound>
+                <div class="no-data-message">
+                    <p>{{ 'HR.LEAVES.NO_LEAVES_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

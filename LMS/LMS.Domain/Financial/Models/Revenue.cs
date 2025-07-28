@@ -7,7 +7,7 @@ namespace LMS.Domain.Financial.Models
     public class Revenue
     {
         //Primary Key:
-        public Guid FinancialRevenueId { get; set; }
+        public Guid RevenueId { get; set; }
 
 
         //Foreign Key: CustomerId ==> one(Customer)-to-many(Payment) relationship
@@ -16,6 +16,7 @@ namespace LMS.Domain.Financial.Models
 
         //Foreign Key: EmployeeId ==> one(Employee)-to-many(PrintOrder) relationship
         public Guid EmployeeId { get; set; }
+
 
         public decimal Amount { get; set; }
         public Service Service { get; set; }
@@ -36,7 +37,7 @@ namespace LMS.Domain.Financial.Models
 
         public Revenue()
         {
-            FinancialRevenueId = Guid.NewGuid();
+            RevenueId = Guid.NewGuid();
             IsActive = true;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;

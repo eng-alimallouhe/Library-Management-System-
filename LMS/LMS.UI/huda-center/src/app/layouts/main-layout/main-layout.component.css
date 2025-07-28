@@ -1,0 +1,13 @@
+.app-layout {
+    transition: all var(--transition-speed);
+}
+
+
+.navbar-wrapper {
+    height: 70px;
+}
+
+.main-content {
+    height: calc(100% - 70px);
+    transition: all var(--transition-speed);
+}

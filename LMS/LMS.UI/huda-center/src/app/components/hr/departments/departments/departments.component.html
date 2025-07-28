@@ -1,0 +1,167 @@
+<div class="add-button-wrapper">
+    <button class="add-button" (click)="showDepartmentAddForm()">
+        <i class="material-icons">add</i>
+        {{ 'HR.DEPARTMENTS.ADD_DEPARTMENT' | translate }}
+    </button>
+</div>
+
+
+<app-add-department [(visible)]="isDepartmentAddFormVisible"
+    (departmentAdded)="onDepartmentAdded()"></app-add-department>
+
+<div class="page-content-wrapper">
+    <div class="employees-container">
+        <div class="table-container">
+            <app-loader *ngIf="isLoadingDepartments" type="circle"></app-loader>
+
+            <div *ngIf="departmentsPage$ | async as departmentPage">
+                <div *ngIf="departmentPage.items && departmentPage.items.length > 0; else noDataFound">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>{{ 'HR.DEPARTMENTS.NAME' | translate }}</th>
+                                    <th>{{ 'HR.DEPARTMENTS.EMPLOYEE_COUNT' | translate }}</th>
+                                    <th>{{ 'HR.DEPARTMENTS.CREATED_AT' | translate }}</th>
+                                    <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let department of departmentPage.items">
+                                    <td attr.data-label="{{ 'HR.DEPARTMENTS.NAME' | translate }}">{{
+                                        department.departmentName }}</td>
+                                    <td attr.data-label="{{ 'HR.DEPARTMENTS.EMPLOYEE_COUNT' | translate }}">{{
+                                        department.employeesCount }}</td>
+                                    <td attr.data-label="{{ 'HR.DEPARTMENTS.CREATED_AT' | translate }}">{{
+                                        department.createdAt | date:'shortDate' }}</td>
+                                    <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                        <button class="action-button view-button"
+                                            [routerLink]="['/app/hr/departments/', department.departmentId]">
+                                            <i class="material-icons">visibility</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination-container">
+                        <button class="pagination-btn" (click)="getPreviousPage()"
+                            [disabled]="!departmentsPageSnapshot.hasPrevious || isLoadingDepartments">
+                            « {{ 'COMMON.PREVIOUS_PAGE' | translate }}
+                        </button>
+
+                        <ng-container *ngIf="departmentsPageSnapshot">
+                            <ng-container
+                                *ngIf="getPageNumbers(departmentsPageSnapshot.currentPage, departmentsPageSnapshot.totalPages, 5) as pages">
+                                <span *ngFor="let page of pages">
+                                    <button (click)="goToPage(page)"
+                                        [class.active]="page === departmentsPageSnapshot.currentPage"
+                                        class="pagination-btn">
+                                        {{ page }}
+                                    </button>
+                                </span>
+
+                                <span *ngIf="pages[pages.length - 1] < departmentsPageSnapshot.totalPages">...</span>
+                                <button *ngIf="pages[pages.length - 1] < departmentsPageSnapshot.totalPages"
+                                    (click)="goToPage(departmentsPageSnapshot.totalPages)" class="pagination-btn">
+                                    {{ departmentsPageSnapshot.totalPages }}
+                                </button>
+                            </ng-container>
+                        </ng-container>
+
+                        <button class="pagination-btn" (click)="getNextPage()"
+                            [disabled]="!departmentsPageSnapshot.hasNext || isLoadingDepartments">
+                            {{ 'COMMON.NEXT_PAGE' | translate }} »
+                        </button>
+                    </div>
+                </div>
+
+                <ng-template #noDataFound>
+                    <div class="no-data-message">
+                        <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div  [class.filters-overlay]="isSmallScreen" 
+    [class.show-overlay]="showFilters && isSmallScreen">
+        <div class="filters-sidebar-section">    
+            <form [formGroup]="filterForm" class="filters-form" [class.hidden-on-small]="!showFilters">
+                <div class="filters-container-wrapper">
+    
+                    <div class="filter-category" [class.collapsed]="!isDateRangeExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleDateRange()">{{'FILTERS.DATE_RANGE' |
+                                translate}}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearDateRangeFilter()">
+                                    <i class="material-icons">close</i> </button>
+                                <i class="material-icons arrow-icon" (click)="toggleDateRange()"
+                                    [class.rotated]="isDateRangeExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <input type="date" id="from" formControlName="from"
+                                placeholder="{{ 'EMPLOYEES.FROM_DATE' | translate }}">
+                            <input type="date" id="to" formControlName="to"
+                                placeholder="{{ 'EMPLOYEES.TO_DATE' | translate }}">
+                        </div>
+                    </div>
+    
+                    <div class="filter-category" [class.collapsed]="!isOnlyActiveExpanded">
+                        <div class="category-header">
+                            <span class="category-title" (click)="toggleOnlyActive()">{{'FILTERS.ACTIVE_RECORDS' |
+                                translate}}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button"
+                                    (click)="clearOnlyActiveRegistersFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleOnlyActive()"
+                                    [class.rotated]="isOnlyActiveExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <label class="checkbox-label">
+                                <input type="checkbox" formControlName="onlyActiveRegisters">
+                                {{ 'FILTERS.ONLY_ACTIVE' | translate }}
+                            </label>
+                        </div>
+                    </div>
+    
+                    <div class="filter-category" [class.collapsed]="!isEmployeeNumberExpanded">
+                        <div class="category-header">
+                            <span class="category-title"
+                                (click)="toggleEmployeeNumber()">{{'FILTERS.EMPLOYEE_COUNT' |
+                                translate}}</span>
+                            <div class="actions">
+                                <button type="button" class="clear-filter-button" (click)="clearEmployeeNumberFilter()">
+                                    <i class="material-icons">close</i>
+                                </button>
+                                <i class="material-icons arrow-icon" (click)="toggleEmployeeNumber()"
+                                    [class.rotated]="isEmployeeNumberExpanded">keyboard_arrow_down</i>
+                            </div>
+                        </div>
+                        <div class="category-content slider-content">
+                            <mat-slider class="employee-count-slider" [min]="minEmployeesRange" [max]="maxEmployeesRange"
+                                step="1" [discrete]="true" [showTickMarks]="true">
+                                <input matSliderStartThumb [formControlName]="'minEmployeeNumber'">
+                                <input matSliderEndThumb [formControlName]="'maxEmployeesNumber'">
+                            </mat-slider>
+                        </div>
+                    </div>
+    
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<button class="floating-filter-button" *ngIf="!isDepartmentAddFormVisible" (click)="toggleFilters()"
+    title="{{ 'COMMON.FILTERS' | translate }}">
+    <i class="material-icons">settings</i>
+</button>

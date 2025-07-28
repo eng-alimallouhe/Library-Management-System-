@@ -4,9 +4,11 @@ using LMS.Domain.Entities.HttpEntities;
 using LMS.Domain.Financial.Models;
 using LMS.Domain.HR.Models;
 using LMS.Domain.Identity.Models;
+using LMS.Domain.Identity.Models.Notifications;
 using LMS.Domain.Identity.ValueObjects;
 using LMS.Domain.LibraryManagement.Models;
 using LMS.Domain.LibraryManagement.Models.Authors;
+using LMS.Domain.LibraryManagement.Models.Categories;
 using LMS.Domain.LibraryManagement.Models.Genres;
 using LMS.Domain.LibraryManagement.Models.Products;
 using LMS.Domain.LibraryManagement.Models.Publishers;
@@ -22,7 +24,6 @@ using LMS.Infrastructure.Configurations.LibraryManagement.Genres;
 using LMS.Infrastructure.Configurations.LibraryManagement.Products;
 using LMS.Infrastructure.Configurations.LibraryManagement.Relations;
 using LMS.Infrastructure.Configurations.Orders;
-using LMS.Infrastructure.Configurations.Stock;
 using LMS.Infrastructure.Configurations.Stock.Publishers;
 using LMS.Infrastructure.Configurations.Users;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,7 @@ namespace LMS.Infrastructure.DbContexts
         public DbSet<Address> Addresses { get; set; }
         public DbSet<OtpCode> OtpCodes { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationTranslation> NotificationTranslations { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 
@@ -52,14 +54,14 @@ namespace LMS.Infrastructure.DbContexts
         public DbSet<Salary> Salaries { get; set; }
         public DbSet<Incentive> Incentives { get; set; }
         public DbSet<Penalty> Penalties { get; set; }
+        public DbSet<Holiday> Holidies { get; set; }
+
 
         // Orders Namespace
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<BaseOrder> BaseOrders { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<PrintOrder> PrintOrders { get; set; }
         public DbSet<Shipment> DeliveryOrders { get; set; }
 
         // Stock Namespace
@@ -75,10 +77,12 @@ namespace LMS.Infrastructure.DbContexts
         public DbSet<Book> Books { get; set; }
         public DbSet<GenreBook> GenreBooks { get; set; }
         public DbSet<PublisherBook> PublisherBooks { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryTranslation> categoryTranslations { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<InventoryLog> InventoryLogs { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Purchase> Purchases { get; set; }
 
         //Financial Namespace:
         public DbSet<LoyaltyLevel> Levels { get; set; }
@@ -99,15 +103,15 @@ namespace LMS.Infrastructure.DbContexts
             modelBuilder.ApplyConfiguration(new RoleConfigurations());
             modelBuilder.ApplyConfiguration(new EmployeeConfigurations());
             modelBuilder.ApplyConfiguration(new AddressConfigurations());
+            modelBuilder.ApplyConfiguration(new RefreshTokenConfigurations());
             modelBuilder.ApplyConfiguration(new DepartmentConfigurations());
             modelBuilder.ApplyConfiguration(new EmployeeDepartmentConfigurations());
             modelBuilder.ApplyConfiguration(new OtpConfigurations());
-            modelBuilder.ApplyConfiguration(new NotificationConfigurations());
+            modelBuilder.ApplyConfiguration(new NotificationTranslationsConfigurations());
+            modelBuilder.ApplyConfiguration(new NotificationTranslationsConfigurations());
 
 
             //Stock Namespace: 
-            modelBuilder.ApplyConfiguration(new SupplierConfigurations());
-            modelBuilder.ApplyConfiguration(new PurchaseConfigurations());
             modelBuilder.ApplyConfiguration(new DiscountConfigurations());
             modelBuilder.ApplyConfiguration(new InventoryLogConfigurations());
             modelBuilder.ApplyConfiguration(new GenreConfigurations());
@@ -127,9 +131,7 @@ namespace LMS.Infrastructure.DbContexts
             
             //Orders Namespace: 
             modelBuilder.ApplyConfiguration(new OrderConfigurations());
-            modelBuilder.ApplyConfiguration(new PrintOrderConfigurations());
             modelBuilder.ApplyConfiguration(new OrderItemConfigurations());
-            modelBuilder.ApplyConfiguration(new BaseOrderConfigurations());
             modelBuilder.ApplyConfiguration(new ShipmentConfigurations());
             modelBuilder.ApplyConfiguration(new CartItemConfigurations());
             modelBuilder.ApplyConfiguration(new CartConfigurations());

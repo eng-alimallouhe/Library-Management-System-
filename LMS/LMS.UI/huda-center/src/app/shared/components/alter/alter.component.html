@@ -1,0 +1,10 @@
+<!-- src/app/shared/components/alter/alter.component.html -->
+
+<div class="modal-backdrop" *ngIf="visible" [ngClass]="{'success-backdrop': isSuccess, 'error-backdrop': !isSuccess}">
+    <div class="modal-content" role="alertdialog" aria-modal="true" aria-labelledby="modalTitle"
+        aria-describedby="modalDesc" [ngClass]="{'success-modal': isSuccess, 'error-modal': !isSuccess}">
+        <h2 id="modalTitle">{{'COMMON.ALERT' | translate}}</h2>
+        <p id="modalDesc">{{ message }}</p>
+        <button class="close-btn" (click)="close()">{{'COMMON.CLOSE' | translate }}</button>
+    </div>
+</div>

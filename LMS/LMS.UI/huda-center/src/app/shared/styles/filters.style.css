@@ -1,0 +1,224 @@
+.filters-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--backdrop-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+}
+
+.filters-overlay.show-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.filters-sidebar-section {
+    background-color: var(--primary-background-color);
+    padding: 20px;
+    max-width: 250px;
+    transition: transform var(--transition-speed) ease;
+    height: 80vh;
+    padding-bottom: 20px;
+}
+
+
+.filter-header-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.floating-filter-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: var(--buttons-text-color);
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow-light);
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    z-index: 100;
+}
+
+.floating-filter-button:hover {
+    background-color: var(--primary-color);
+    transform: translateX(-50%) translateY(-2px);
+}
+
+.filters-form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.filter-category {
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filters-form .filter-category:last-child {
+    border-bottom: none !important;
+    margin-bottom: 0;
+}
+
+.filter-category.collapsed .category-content {
+    max-height: 0;
+    padding-top: 0;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+.category-title {
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: var(--text-font-size);
+}
+
+.category-header .actions {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.clear-filter-button {
+    background-color: transparent;
+    border: none;
+    color: var(--muted-text-color);
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-speed) ease;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+.clear-filter-button:hover {
+    color: var(--error-color);
+    background-color: var(--hover-light-bg);
+}
+
+.clear-filter-button i.material-icons {
+    font-size: 18px;
+}
+
+.arrow-icon {
+    transition: transform var(--transition-speed) linear;
+    color: var(--primary-color);
+}
+
+.arrow-icon.rotated {
+    transform: rotate(180deg);
+}
+
+.category-content {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height var(--transition-speed) ease-in-out, padding-top var(--transition-speed) ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.category-content input[type="date"],
+.category-content select {
+    padding: 0.6rem;
+    border: 1px solid var(--primary-color) !important;
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    color: var(--text-color);
+    background-color: var(--primary-background-color);
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.checkbox-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+}
+
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+
+@media (max-width: 991px) {
+
+    .floating-filter-button {
+        display: flex;
+        position: fixed;
+        z-index: 2000;
+    }
+
+    .filters-sidebar-section {
+        display: block;
+        position: fixed;
+        width: 95%;
+        max-width: none;
+        height: 80vh;
+        top: 5%;
+        margin: 0;
+        border-radius: var(--border-radius);
+        box-shadow: none;
+        transform: none;
+        transition: none;
+        z-index: 1999;
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+}
+
+@media (min-width: 992px) {
+    .floating-filter-button {
+        display: none;
+    }
+
+    .filters-overlay {
+        display: none;
+    }
+}

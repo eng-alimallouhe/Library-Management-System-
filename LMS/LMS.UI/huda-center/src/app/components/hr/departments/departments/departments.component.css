@@ -1,0 +1,41 @@
+.page-content-wrapper{
+    width: 96%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.employees-container{
+    width: calc(100% - 300px);
+}
+
+@media (max-width: 991px) {
+    .page-content-wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+
+    .employees-container {
+        width: 100%;
+    }
+}
+.slider-content{
+    overflow: visible;
+}
+
+::ng-deep .mat-slider-thumb-label {
+    z-index: 1000 !important;
+    overflow: visible !important;
+    white-space: nowrap;
+}
+
+
+::ng-deep .mat-slider-thumb {
+    overflow: visible !important;
+}
+
+
+::ng-deep .mat-slider-wrapper {
+    overflow: visible !important;
+}

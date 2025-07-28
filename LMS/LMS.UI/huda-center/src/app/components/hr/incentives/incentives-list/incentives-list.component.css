@@ -1,0 +1,11 @@
+.page-content-wrapper {
+    display: flex;
+    width: 96%;
+    margin: 20px auto;
+    justify-content: space-between;
+}
+
+
+.employees-container {
+    width: calc(100% - 300px);
+}

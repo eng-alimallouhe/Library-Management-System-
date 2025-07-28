@@ -1,0 +1,115 @@
+<app-alert [(visible)]="alertVisible" [message]="alertMessage"></app-alert>
+
+<div class="preant-wrapper">
+    <div class="right-section">
+        <div class="title-container">
+            <h1>{{'COMMON.SITE_TITLE' | translate}}</h1>
+            <img src="../../../../assets/images/logo.svg" alt="" srcset="">
+        </div>
+    </div>
+    <div class="left-section">
+        <div class="form-conatiner">
+            <div class="title-container wellcom-title">
+                <div class="title-container hide">
+                    <h1>{{'COMMON.SITE_TITLE' | translate}}</h1>
+                    <img src="../../../../assets/images/logo.svg" alt="" srcset="">
+                </div>    
+                <h1>{{'AUTHENTICATION.REGISTER.WELCOM_MESSAGE' | translate}}</h1>
+            </div>
+
+            <form [formGroup]="(registerForm)" (ngSubmit)="onSubmit()">
+                <div class="input-container">
+                    <input type="text" id="full-name" formControlName="fullName" placeholder=" ">
+                    <label for="full-name">{{'AUTHENTICATION.COMMON.FULL_NAME' | translate }}</label>
+        
+                    <span *ngIf="registerForm.get('fullName')?.errors as errors">
+                        <span class="error"
+                            *ngIf="(registerForm.get('fullName')?.dirty || registerForm.get('fullName')?.touched) || isSubmited">
+                            {{this.validators.getFirstErrorMessage('fullName', errors) | translate }}
+                        </span>
+                    </span>
+                </div>
+        
+        
+                <div class="input-container">
+                    <input type="text" id="username" formControlName="userName" placeholder=" ">
+                    <label for="username">{{'AUTHENTICATION.COMMON.USERNAME' | translate }}</label>
+        
+                    <span *ngIf="registerForm.get('userName')?.invalid 
+                                   && (registerForm.get('userName')?.dirty 
+                                   || registerForm.get('userName')?.touched 
+                                   || isSubmited)">
+                    
+                        <span class="error">
+                            {{ validators.getFirstErrorMessage('userName', registerForm.get('userName')?.errors || {}) | translate }}
+                        </span>
+                    </span>
+                </div>
+        
+        
+                <div class="input-container">
+                    <input type="email" id="email" formControlName="email" placeholder=" ">
+                    <label for="email">{{'AUTHENTICATION.COMMON.EMAIL' | translate }}</label>
+        
+                    <span *ngIf="registerForm.get('email')?.errors as errors">
+                        <span class="error"
+                            *ngIf="(registerForm.get('email')?.dirty || registerForm.get('email')?.touched) || isSubmited">
+                            {{this.validators.getFirstErrorMessage('email', errors) | translate }}
+                        </span>
+                    </span>
+                </div>
+        
+        
+                <div class="input-container">
+                    <input type="text" id="phone" formControlName="phoneNumber" placeholder=" ">
+                    <label for="phone">{{'AUTHENTICATION.COMMON.PHONE_NUMBER' | translate }}</label>
+        
+                    <span *ngIf="registerForm.get('phoneNumber')?.errors as errors">
+                        <span class="error"
+                            *ngIf="(registerForm.get('phoneNumber')?.dirty || registerForm.get('phoneNumber')?.touched) || isSubmited">
+                            {{this.validators.getFirstErrorMessage('phoneNumber', errors) | translate }}
+                        </span>
+                    </span>
+                </div>
+        
+        
+                <div class="input-container">
+                    <input type="password" id="password" formControlName="password" placeholder=" ">
+                    <label for="password">{{'AUTHENTICATION.COMMON.PASSWORD' | translate }}</label>
+        
+                    <span
+                        *ngIf="registerForm.get('password')?.invalid && 
+                                         (registerForm.get('password')?.dirty || registerForm.get('password')?.touched || isSubmited)">
+                        <span class="error">
+                            {{ this.validators.getFirstErrorMessage('password', registerForm.get('password')?.errors!) |
+                            translate }}
+                        </span>
+                    </span>
+                </div>
+        
+        
+                <div class="input-container">
+                    <input type="password" id="confirm-password" formControlName="confirmPassword" placeholder=" ">
+                    <label for="confirm-password">{{'AUTHENTICATION.COMMON.CONFIRM_PASSWORD' | translate }}</label>
+        
+                    <span *ngIf="registerForm.get('confirmPassword')?.errors as errors">
+                        <span class="error" *ngIf="(registerForm.get('confirmPassword')?.dirty) || isSubmited">
+                            {{this.validators.getFirstErrorMessage('confirmPassword', errors) | translate }}
+                        </span>
+                    </span>
+                </div>
+        
+                <div class="button-container">
+                    <input type="submit" [disabled]="isLoading"
+                        value="{{isLoading ? ('COMMON.PLEASE_WAIT' | translate) : ('REGISTER' | translate)}}">
+                    <app-loader *ngIf="isLoading" type="bar" width="350px" height="3px"></app-loader>
+                </div>
+                <p class="link">
+                    {{'AUTHENTICATION.COMMON.DO_YOU_HAVE_ACCOUNT' | translate }} ?
+                    <a routerLink="[/authentication/login]">{{'AUTHENTICATION.COMMON.LOGIN' | translate }}</a>
+                </p>
+            </form>
+        
+        </div>
+    </div>
+</div>

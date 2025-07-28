@@ -25,5 +25,12 @@ namespace LMS.Domain.HR.Models
         public bool IsPaid { get; set; }
 
         public string? PaymentReferenceUrl { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public Salary()
+        {
+            SalaryId = Guid.NewGuid();
+        }
     }
 }

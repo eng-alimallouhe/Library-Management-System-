@@ -4,20 +4,28 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<EnableWindowsCompatibility>true</EnableWindowsCompatibility>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.27.6" />
+    <PackageReference Include="dotenv.net" Version="3.2.1" />
+    <PackageReference Include="FaceRecognitionDotNet" Version="1.3.0.7" />
     <PackageReference Include="MailKit" Version="4.12.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LMS.Application\LMS.Application.csproj" />
     <ProjectReference Include="..\LMS.Common\LMS.Common.csproj" />
     <ProjectReference Include="..\LMS.Domain\LMS.Domain.csproj" />
   </ItemGroup>
@@ -26,6 +34,35 @@
 		<Content Include="Resources\EmailTemplates\**\*.html">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="C:\Users\engal\.nuget\packages\facerecognitiondotnet\1.3.0.7\build\..\runtimes\win-AnyCPU\native\DlibDotNetNativeDnnAgeClassification.dll" />
+	  <Content Remove="C:\Users\engal\.nuget\packages\facerecognitiondotnet\1.3.0.7\build\..\runtimes\win-AnyCPU\native\DlibDotNetNativeDnnGenderClassification.dll" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Content Include="AIModels\dlib_face_recognition_resnet_model_v1.dat">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="AIModels\shape_predictor_5_face_landmarks.dat">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+		<Content Include="AIModels\mmod_human_face_detector.dat">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="AIModels\shape_predictor_68_face_landmarks.dat">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Helpers\Customers\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Include="AIModels\mmod_human_face_detector.dat" />
 	</ItemGroup>	
 	
 </Project>

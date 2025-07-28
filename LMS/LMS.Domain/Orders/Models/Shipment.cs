@@ -4,6 +4,8 @@ namespace LMS.Domain.Orders.Models
 {
     public class Shipment
     {
+        public Guid ShipmentId { get; set; }
+
         //Foreign Key: AddressId ==> one(Address)-to-one(PrintOrder) relationship
         public Guid AddressId { get; set; }
         
@@ -21,7 +23,6 @@ namespace LMS.Domain.Orders.Models
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
 
         public Shipment()
         {

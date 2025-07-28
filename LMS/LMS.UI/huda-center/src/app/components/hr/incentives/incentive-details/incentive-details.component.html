@@ -1,0 +1,109 @@
+<!-- src/app/components/hr/incentives/incentive-details/incentive-details.component.html -->
+
+<app-loader type="circle" *ngIf="isLoading"></app-loader>
+
+<app-edit-incentive [(visible)]="isEditIncentiveFormVisible" [incentiveId]="incentiveId!"
+    (incentiveUpdated)="onIncentiveUpdated()">
+</app-edit-incentive>
+
+<app-confirm-dialog [visible]="showConfirmActionDialog" [title]="confirmDialogTitle"
+    (confirm)="confirmAction()" (cancel)="onCancelAction()">
+</app-confirm-dialog>
+
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>
+
+<div class="details-container" *ngIf="incentiveDetails; else notFound">
+    <h2 class="title-container">{{ 'HR.INCENTIVES.DETAILS.TITLE' | translate }}</h2>
+
+    <div class="details-cards-wrapper">
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">person</i>
+                <span>{{ 'HR.INCENTIVES.DETAILS.EMPLOYEE_NAME' | translate }}</span>
+            </div>
+            <span class="card-description">{{ incentiveDetails.employeeName }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">attach_money</i>
+                <span>{{ 'HR.INCENTIVES.DETAILS.AMOUNT' | translate }}</span>
+            </div>
+            <span class="card-description">{{ incentiveDetails.amount | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">description</i>
+                <span>{{ 'HR.INCENTIVES.DETAILS.REASON' | translate }}</span>
+            </div>
+            <span class="card-description">{{ incentiveDetails.reason }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">event</i>
+                <span>{{ 'HR.INCENTIVES.DETAILS.DECISION_DATE' | translate }}</span>
+            </div>
+            <span class="card-description">{{ incentiveDetails.decisionDate | localDate }}</span>
+        </div>
+
+        <!-- إضافة حالة IsPaid -->
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">payments</i>
+                <span>{{ 'HR.INCENTIVES.DETAILS.IS_PAID' | translate }}</span>
+            </div>
+            <span class="card-description">
+                {{ incentiveDetails.isPaid ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+            </span>
+        </div>
+
+        <!-- إضافة حالة IsApproved -->
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">verified</i>
+                <span>{{ 'HR.INCENTIVES.DETAILS.IS_APPROVED' | translate }}</span>
+            </div>
+            <span class="card-description">
+                {{ incentiveDetails.isApproved ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+            </span>
+        </div>
+    </div>
+
+    <div class="actions-container">
+        <button class="action-button edit" (click)="onEdit()">
+            <i class="material-icons">edit</i> {{ 'COMMON.EDIT' | translate }}
+        </button>
+        <button class="action-button approve" (click)="onApprove()">
+            <i class="material-icons">check_circle</i> {{ 'COMMON.APPROVE' | translate }}
+        </button>
+        <button class="action-button reject" (click)="onReject()">
+            <i class="material-icons">cancel</i> {{ 'COMMON.REJECT' | translate }}
+        </button>
+    </div>
+
+    <div class="decision-file-container" *ngIf="incentiveDetails.decisionFileUrl; else noDecisionFile">
+        <h3>{{ 'HR.INCENTIVES.DETAILS.DECISION_FILE' | translate }}</h3>
+
+        <div class="actions-container">
+            <a [href]="downloadLinkSafeUrl" target="_blank" class="action-button" download>
+                <i class="material-icons">download</i> {{ 'COMMON.DOWNLOAD_FILE' | translate }}
+            </a>
+        </div>
+    </div>
+
+    <ng-template #noDecisionFile>
+        <div class="decision-file-container no-file">
+            <p>{{ 'HR.INCENTIVES.DETAILS.NO_DECISION_FILE' | translate }}</p>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #notFound>
+    <div class="no-data-message">
+        <p *ngIf="!isLoading">{{ 'HR.INCENTIVES.DETAILS.NOT_FOUND' | translate }}</p>
+    </div>
+</ng-template>

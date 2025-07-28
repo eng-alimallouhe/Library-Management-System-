@@ -1,0 +1,84 @@
+<app-alert [(visible)]="alertVisible" [isSuccess]="true" [message]="alertMessage"></app-alert>
+
+
+
+<div class="add-employee-modal-backdrop" *ngIf="visible">
+    <div class="add-employee-modal-content">
+        <div class="form-conatiner">
+            <div class="title-container title-container-normal">
+                <h1>{{ 'HR.EMPLOYEES.UPDATE_EMPLOYEE.TITLE' | translate }} {{ employeeInformation.fullName }} {{ 'HR.EMPLOYEES.UPDATE_EMPLOYEE.INFORMATION' | translate }}</h1>
+                <p>{{ 'HR.EMPLOYEES.UPDATE_EMPLOYEE.DESCRIPTION' | translate }}</p>
+            </div>
+
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                <div class="input-container">
+                    <input type="text" id="full-name" formControlName="fullName" placeholder=" ">
+                    <label for="full-name">{{'HR.EMPLOYEES.NEW_EMPLOYEE.NAME' | translate }}</label>
+
+                    <span *ngIf="updateForm.get('fullName')?.errors as errors">
+                        <span class="error" *ngIf="isSubmited">
+                            {{ 'THIS_FIELD_IS_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+
+                <div class="input-container">
+                    <input type="email" id="email" formControlName="email" placeholder=" ">
+                    <label for="email">{{'HR.EMPLOYEES.NEW_EMPLOYEE.EMAIL' | translate }}</label>
+
+                    <span *ngIf="updateForm.get('email')?.errors as errors">
+                        <span class="error" *ngIf="isSubmited">
+                            {{ 'THIS_FIELD_IS_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+
+                <div class="input-container">
+                    <input type="email" id="phone-number" formControlName="phoneNumber" placeholder=" ">
+                    <label for="phone-number">{{'HR.EMPLOYEES.NEW_EMPLOYEE.PHONE_NUMBER' | translate }}</label>
+
+                    <span *ngIf="updateForm.get('phoneNumber')?.errors as errors">
+                        <span class="error" *ngIf="isSubmited">
+                            {{ 'THIS_FIELD_IS_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="input-container">
+                    <input type="email" id="base-salary" formControlName="baseSalary" placeholder=" ">
+                    <label for="base-salary">{{'HR.EMPLOYEES.NEW_EMPLOYEE.BASE_SALARY' | translate }}</label>
+
+                    <span *ngIf="updateForm.get('baseSalary')?.errors as errors">
+                        <span class="error" *ngIf="isSubmited">
+                            {{ 'THIS_FIELD_IS_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="custom-file-wrapper">
+                    <label for="faceFileInput" class="custom-file-label">
+                        <i class="material-icons">upload</i>
+                        <span class="file-text">{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.FACE_IMAGE' | translate }}</span>
+                    </label>
+                    <input type="file" id="faceFileInput" (change)="onFaceImageFileSelected($event)" />
+                </div>
+
+
+                <div class="buttons-container">
+                    <div class="submit-wrapper">
+                        <input type="button" (click)="close()" value="{{'COMMON.CLOSE' | translate }}">
+                    </div>
+                    <div class="submit-wrapper">
+                        <div class="button-container">
+                            <input type="submit" [disabled]="isLoadingResult"
+                                value="{{isLoadingResult ? ('PLEASE_WAIT' | translate) : ('COMMON.SUBMIT' | translate)}}">
+                            <app-loader style="width: 80%;" type="bar" width="100%" *ngIf="isLoadingResult"></app-loader>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

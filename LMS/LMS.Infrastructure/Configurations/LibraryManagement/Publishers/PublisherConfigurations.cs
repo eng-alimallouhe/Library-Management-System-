@@ -1,4 +1,4 @@
-﻿using LMS.Domain.Entities.Stock.Publishers;
+﻿using LMS.Domain.LibraryManagement.Models.Publishers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

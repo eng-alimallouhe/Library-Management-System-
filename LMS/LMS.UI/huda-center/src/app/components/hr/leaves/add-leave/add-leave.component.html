@@ -1,0 +1,86 @@
+<!-- src/app/components/hr/leaves/add-leave/add-leave.component.html -->
+
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>
+
+<div class="add-department-modal-backdrop" *ngIf="visible">
+    <div class="add-department-modal-content">
+        <app-loader type="circle" *ngIf="isLoadingResult"></app-loader>
+        <div class="form-conatiner" *ngIf="!isLoadingResult && addForm"> <!-- إضافة && addForm هنا -->
+            <div class="title-container title-container-normal">
+                <h1>{{ 'HR.LEAVES.NEW_LEAVE.TITLE' | translate }}</h1>
+                <p>{{ 'HR.LEAVES.NEW_LEAVE.DESCRIPTION_TEXT' | translate }}</p>
+            </div>
+
+            <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+                <!-- حقل تاريخ البدء -->
+                <div class="input-container">
+                    <input type="date" id="startDate" formControlName="startDate" placeholder=" ">
+                    <label for="startDate">{{ 'HR.LEAVES.START_DATE' | translate }}</label>
+                    <span class="error" *ngIf="showError('startDate')">
+                        <span *ngIf="getControl('startDate')?.errors?.['required']">
+                            {{ 'VALIDATION.START_DATE_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <!-- حقل تاريخ الانتهاء -->
+                <div class="input-container">
+                    <input type="date" id="endDate" formControlName="endDate" placeholder=" ">
+                    <label for="endDate">{{ 'HR.LEAVES.END_DATE' | translate }}</label>
+                    <span class="error" *ngIf="showError('endDate')">
+                        <span *ngIf="getControl('endDate')?.errors?.['required']">
+                            {{ 'VALIDATION.END_DATE_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+                <!-- رسالة خطأ لنطاق التاريخ بالكامل -->
+                <span class="error"
+                    *ngIf="addForm.errors?.['dateRangeInvalid'] && (addForm.dirty || addForm.touched || isSubmitted)">
+                    {{ 'VALIDATION.DATE_RANGE_INVALID' | translate }}
+                </span>
+
+                <!-- حقل نوع الإجازة (Select) -->
+                <div class="input-container">
+                    <select id="leaveType" formControlName="leaveType">
+                        <option [ngValue]="null" disabled selected>{{ 'COMMON.SELECT_OPTION' | translate }}</option>
+                        <option *ngFor="let option of leaveTypeOptions" [ngValue]="option.value">
+                            {{ option.label | translate }}
+                        </option>
+                    </select>
+                    <label for="leaveType">{{ 'HR.LEAVES.TYPE' | translate }}</label>
+                    <span class="error" *ngIf="showError('leaveType')">
+                        <span *ngIf="getControl('leaveType')?.errors?.['required']">
+                            {{ 'VALIDATION.LEAVE_TYPE_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <!-- حقل السبب (Textarea) -->
+                <div class="input-container">
+                    <textarea id="reason" formControlName="reason" rows="3" placeholder=" "></textarea>
+                    <label for="reason">{{ 'HR.LEAVES.DETAILS.REASON' | translate }}</label>
+                    <span class="error" *ngIf="showError('reason')">
+                        <span *ngIf="getControl('reason')?.errors?.['required']">
+                            {{ 'VALIDATION.REASON_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="buttons-container">
+                    <div class="submit-wrapper">
+                        <input type="button" (click)="closeModal()" value="{{'COMMON.CLOSE' | translate }}">
+                    </div>
+                    <div class="submit-wrapper">
+                        <div class="button-container">
+                            <input type="submit" [disabled]="isLoadingResult"
+                                value="{{isLoadingResult ? ('COMMON.PLEASE_WAIT' | translate) : ('COMMON.SUBMIT' | translate)}}">
+                            <div class="line-loader" *ngIf="isLoadingResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

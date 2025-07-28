@@ -1,0 +1,82 @@
+<div class="cards-container">
+    <app-loader *ngIf="isLoadingKpi" type="circle"></app-loader>
+    
+    <ng-container *ngIf="kpiCards$ | async as cards">
+        <div class="kpi-cards-grid" *ngIf="!isLoadingKpi">
+            <div class="kpi-card" *ngFor="let card of cards" [routerLink]="card.routerLink"
+                [class.clickable]="card.routerLink">
+                <div class="kpi-header">
+                    <i class="material-icons kpi-icon">{{ card.icon }}</i>
+                    <h3 class="kpi-title">{{ card.title | translate }}</h3>
+                </div>
+                <div class="kpi-body">
+                    <p class="kpi-value">{{ card.value | number }}</p>
+                    <p class="kpi-description">
+                        {{ card.description | translate }}
+                    </p>
+                </div>
+                <div class="kpi-footer">
+                    <span class="kpi-trend" [class.positive]="card.trendValue > 0"
+                        [class.negative]="card.trendValue < 0"
+                        *ngIf="card.trendValue !== null && card.trendValue !== 0">
+                        <i class="material-icons">
+                            {{ card.trendValue > 0 ? 'arrow_upward' : 'arrow_downward' }}
+                        </i>
+                        {{ card.trendValue > 0 ? '+' : '' }}{{ card.trendValue | number:'1.1-1' }}%
+                    </span>
+                    <span class="kpi-trend" *ngIf="card.trendValue === 0" style="color: #666;">
+                        <i class="material-icons">remove</i>
+                        {{ 'DASHBOARD.NO_CHANGE_PERCENTAGE' | translate }}
+                    </span>
+                    <span class="kpi-last-update">{{ card.lastUpdate | translate }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<div class="charts-container">
+    <app-sales-chart class="chart"></app-sales-chart>
+    <app-orders-chart class="chart"></app-orders-chart>
+</div>
+
+<div class="details-container">
+    <app-loader type="circle" *ngIf="isLoadingProducts"></app-loader>
+    <div *ngIf="lowStock$ | async as lowStockPage">
+        <div class="title-container">
+            <h2>{{'LIBRARY_MANAGEMENT.PRODUCTS.PRODUCTS_BELOW_THRESHOLD' | translate}}</h2>
+        </div>
+        <div *ngIf="!isLoadingProducts && lowStockPage.items as lowStocks" >
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'LIBRARY_MANAGEMENT.PRODUCTS.PRODUCT_NAME' | translate }}</th>
+                            <th>{{ 'LIBRARY_MANAGEMENT.PRODUCTS.PRODUCT_STOCK' | translate }}</th>
+                            <th>{{ 'LIBRARY_MANAGEMENT.PRODUCTS.PRODUCT_PRICE' | translate }}</th>
+                            <th>{{ 'COMMON.TOTAL_VALUE' | translate }}</th>
+                            <th>{{ 'COMMON.UPDATED_AT' | translate }}</th>
+                            <th>{{ 'LIBRARY_MANAGEMENT.PRODUCTS.LOGS_COUNT' | translate }}</th>
+                            <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let stock of lowStocks">
+                            <td attr.data-label="{{ 'LIBRARY_MANAGEMENT.PRODUCTS.PRODUCT_NAME' | translate }}">{{ stock.productName }}</td>
+                            <td attr.data-label="{{ 'LIBRARY_MANAGEMENT.PRODUCTS.PRODUCT_STOCK' | translate }}">{{ stock.productStock }}</td>
+                            <td attr.data-label="{{ 'LIBRARY_MANAGEMENT.PRODUCTS.PRODUCT_PRICE' | translate }}">{{ stock.productPrice }}</td>
+                            <td attr.data-label="{{ 'COMMON.TOTAL_VALUE' | translate }}">{{ stock.totalValue }}</td>
+                            <td attr.data-label="{{ 'COMMON.UPDATED_AT' | translate }}">{{ stock.updatedAt }}</td>
+                            <td attr.data-label="{{ 'LIBRARY_MANAGEMENT.PRODUCTS.LOGS_COUNT' | translate }}">{{ stock.logsCount }}</td>
+                            <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                <button class="action-button view-button"
+                                    [routerLink]="['/admin/stocks/', stock.productId]">
+                                    <i class="material-icons">visibility</i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

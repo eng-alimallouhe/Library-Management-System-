@@ -16,7 +16,8 @@
         
         public required string AppointmentDecisionUrl { get; set; }
 
-        
+        public bool IsManager { get; set; } = false;
+
         //Soft Delete:
         public bool IsActive { get; set; }
 

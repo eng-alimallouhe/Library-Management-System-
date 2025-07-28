@@ -1,0 +1,116 @@
+<!-- src/app/components/hr/leaves/leave-details/leave-details.component.html -->
+
+<app-loader type="circle" *ngIf="isLoading"></app-loader>
+
+<!-- سيتم إضافة مكون التعديل هنا بعد إنشائه -->
+<app-edit-leave [(visible)]="isEditLeaveFormVisible" [leaveId]="leaveId!" (leaveUpdated)="onLeaveUpdated()">
+</app-edit-leave>
+
+<app-confirm-dialog [visible]="showConfirmActionDialog" [title]="confirmDialogTitle"
+    (confirm)="confirmAction()" (cancel)="onCancelAction()">
+</app-confirm-dialog>
+
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>
+
+<div class="details-container"   *ngIf="leaveDetails &&!isLoading; else notFound">
+    <h2 class="title-container">{{ 'HR.LEAVES.DETAILS.TITLE' | translate }}</h2>
+
+    <div class="details-cards-wrapper">
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">person</i>
+                <span>{{ 'HR.LEAVES.DETAILS.EMPLOYEE_NAME' | translate }}</span>
+            </div>
+            <span class="card-description">{{ leaveDetails.employeeName }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">event_available</i>
+                <span>{{ 'HR.LEAVES.DETAILS.START_DATE' | translate }}</span>
+            </div>
+            <span class="card-description">{{ leaveDetails.startDate | localDate }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">event_busy</i>
+                <span>{{ 'HR.LEAVES.DETAILS.END_DATE' | translate }}</span>
+            </div>
+            <span class="card-description">{{ leaveDetails.endDate | localDate }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">category</i>
+                <span>{{ 'HR.LEAVES.DETAILS.LEAVE_TYPE' | translate }}</span>
+            </div>
+            <span class="card-description">{{ ('HR.LEAVES.LEAVES.TYPE.'  + (leaveDetails.leaveType.toString()| uppercase)) | translate}}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">info</i>
+                <span>{{ 'HR.LEAVES.DETAILS.LEAVE_STATUS' | translate }}</span>
+            </div>
+            <span class="card-description">{{ ('HR.LEAVES.LEAVES.STATUS.' + (leaveDetails.leaveStatus.toString()| uppercase)) | translate }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">attach_money</i>
+                <span>{{ 'HR.LEAVES.DETAILS.IS_PAID' | translate }}</span>
+            </div>
+            <span class="card-description">
+                {{ leaveDetails.isPaid ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+            </span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">description</i>
+                <span>{{ 'HR.LEAVES.DETAILS.REASON' | translate }}</span>
+            </div>
+            <span class="card-description">{{ leaveDetails.reason }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">access_time</i>
+                <span>{{ 'HR.LEAVES.DETAILS.CREATED_AT' | translate }}</span>
+            </div>
+            <span class="card-description">{{ leaveDetails.createdAt | localDate }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">update</i>
+                <span>{{ 'HR.LEAVES.DETAILS.UPDATED_AT' | translate }}</span>
+            </div>
+            <span class="card-description">{{ leaveDetails.updatedAt | localDate }}</span>
+        </div>
+    </div>
+
+    <div class="actions-container">
+        <button class="action-button edit" (click)="onEdit()">
+            <i class="material-icons">edit</i> {{ 'COMMON.EDIT' | translate }}
+        </button>
+        <button class="action-button approve" (click)="onApprove()">
+            <i class="material-icons">check_circle</i> {{ 'COMMON.APPROVE' | translate }}
+        </button>
+        <button class="action-button reject" (click)="onReject()">
+            <i class="material-icons">cancel</i> {{ 'COMMON.REJECT' | translate }}
+        </button>
+        <button class="action-button delete" (click)="onDelete()">
+            <i class="material-icons">delete</i> {{ 'COMMON.DELETE' | translate }}
+        </button>
+    </div>
+</div>
+
+<ng-template #notFound>
+    <div class="no-data-message" *ngIf="!isLoading">
+        <p *ngIf="!isLoading">{{ 'HR.LEAVES.DETAILS.NOT_FOUND' | translate }}</p>
+    </div>
+</ng-template>

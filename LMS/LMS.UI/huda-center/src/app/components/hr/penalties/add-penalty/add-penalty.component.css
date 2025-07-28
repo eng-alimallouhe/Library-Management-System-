@@ -1,0 +1,51 @@
+.add-department-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--backdrop-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+}
+
+/* Modal Content - استخدام نفس كلاسات Department */
+.add-department-modal-content {
+    background-color: var(--primary-background-color);
+    width: 50vw;
+    max-width: 90vw;
+    /* تم تعديلها لتكون 90vw بدلاً من 90% */
+    height: auto;
+    max-height: 98vh;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: var(--text-color);
+    overflow-y: auto;
+    scrollbar-width: none;
+    /* لإخفاء شريط التمرير في Firefox */
+    -ms-overflow-style: none;
+    /* لإخفاء شريط التمرير في IE/Edge */
+}
+
+.add-department-modal-content::-webkit-scrollbar {
+    display: none;
+}
+
+.form-conatiner {
+    height: auto;
+}
+
+.buttons-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.submit-wrapper{
+    width: 45%;
+}

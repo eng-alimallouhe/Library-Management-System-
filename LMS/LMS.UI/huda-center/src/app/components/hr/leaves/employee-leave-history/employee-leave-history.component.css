@@ -1,0 +1,13 @@
+.add-button{
+    transition: all var(--transition-speed) linear;
+}
+
+.add-button:active{
+    transform: scale(0.95);
+}
+
+.page-content-wrapper{
+    width: 96%;
+    margin: 0 auto;
+    height: 100%;
+}

@@ -1,0 +1,173 @@
+<app-loader type="circle" *ngIf="isLoadingDepartment"></app-loader>
+
+<app-alert [(visible)]="alertVisible" [message]="alertMessage" [isSuccess]="isSuccessAlert">
+</app-alert>
+
+
+<app-confirm-dialog [visible]="showConfirmDeleteDialog" (confirm)="deleteDepartment()" (cancel)="onCancelDelete()">
+</app-confirm-dialog>
+
+<app-update-department [(visible)]="isDepartmentUpdateFormVisible" [departmentId]="departmentId"
+    (departmentUpdated)="onDepartmentUpdated()">
+</app-update-department>
+
+<div class="department-details-wrapper" *ngIf="department$ | async as department">
+    <div class="details-container">
+        <div class="title-container">
+            <h2>{{ 'HR.DEPARTMENTS.DEPARTMENT_DETAILS.GENERAL_INFORMATION' | translate}}</h2>
+        </div>
+        <div class="details-cards-wrapper">
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">business</i>
+                    <span>{{ 'HR.DEPARTMENTS.NAME' | translate }}</span>
+                </div>
+                <span class="card-description">{{department.departmentName}}</span>
+            </div>
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">description</i>
+                    <span>{{ 'HR.DEPARTMENTS.DEPARTMENT_DESCRIPTION' | translate }}</span>
+                </div>
+                <span class="card-description">{{department.departmentDescription || ('COMMON.NOT_AVAILABLE' |
+                    translate)}}</span>
+            </div>
+        </div>
+        <div class="actions-container">
+            <button class="action-button edit-button" (click)="onEdit()">
+                <i class="material-icons">edit</i> {{ 'COMMON.EDIT' | translate }}
+            </button>
+
+            <button class="action-button delete-button" (click)="onDelete()">
+                <i class="material-icons">delete</i> {{ 'COMMON.DELETE' | translate }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Current Employees Table -->
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.DEPARTMENTS.DEPARTMENT_DETAILS.CURRENT_EMPLOYEES_TITLE' | translate }}</h2>
+        </div>
+        <div class="table-container">
+            <div
+                *ngIf="department.currentEmployees && department.currentEmployees.length > 0; else noCurrentEmployeesFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.NAME' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.HIRE_DATE' | translate }}</th>
+                            <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of department.currentEmployees">
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.NAME' | translate }}">{{
+                                employee.fullName }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.HIRE_DATE' | translate }}">{{
+                                employee.hireDate | localDate }}</td>
+                            <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                <button class="action-button view-button"
+                                    [routerLink]="['/app/hr/employees/', employee.employeeId]">
+                                    <i class="material-icons">visibility</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noCurrentEmployeesFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <!-- Former Employees Table -->
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.DEPARTMENTS.DEPARTMENT_DETAILS.FORMER_EMPLOYEES_TITLE' | translate }}</h2>
+        </div>
+        <div class="table-container">
+            <div
+                *ngIf="department.formerEmployees && department.formerEmployees.length > 0; else noFormerEmployeesFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.NAME' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.HIRE_DATE' | translate }}</th>
+                            <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of department.formerEmployees">
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.NAME' | translate }}">{{
+                                employee.fullName }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.HIRE_DATE' | translate }}">{{
+                                employee.hireDate | localDate }}</td>
+                            <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                <button class="action-button view-button"
+                                    [routerLink]="['/app/hr/employees/', employee.employeeId]">
+                                    <i class="material-icons">visibility</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noFormerEmployeesFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <!-- Current Orders Table -->
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.DEPARTMENTS.DEPARTMENT_DETAILS.CURRENT_ORDERS_TITLE' | translate }}</h2>
+        </div>
+        <div class="table-container">
+            <div *ngIf="department.currentOrders && department.currentOrders.length > 0; else noOrdersFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'ORDERS.ORDER_ID' | translate }}</th>
+                            <th>{{ 'ORDERS.STATUS' | translate }}</th>
+                            <th>{{ 'ORDERS.CREATED_AT' | translate }}</th>
+                            <th>{{ 'ORDERS.UPDATED_AT' | translate }}</th>
+                            <th>{{ 'ORDERS.COST' | translate }}</th>
+                            <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of department.currentOrders">
+                            <td attr.data-label="{{ 'ORDERS.ORDER_ID' | translate }}">{{ order.orderId }}</td>
+                            <td attr.data-label="{{ 'ORDERS.STATUS' | translate }}">{{ ('ORDER_STATUSES.' +
+                                order.status) | translate }}</td>
+                            <td attr.data-label="{{ 'ORDERS.CREATED_AT' | translate }}">{{ order.createdAt | localDate
+                                }}</td>
+                            <td attr.data-label="{{ 'ORDERS.UPDATED_AT' | translate }}">{{ order.updatedAt | localDate
+                                }}</td>
+                            <td attr.data-label="{{ 'ORDERS.COST' | translate }}">{{ order.cost |
+                                currency:'USD':'symbol':'1.2-2' }}</td>
+                            <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                <button class="action-button view-button"
+                                    [routerLink]="['/app/orders/', order.orderId]">
+                                    <i class="material-icons">visibility</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noOrdersFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

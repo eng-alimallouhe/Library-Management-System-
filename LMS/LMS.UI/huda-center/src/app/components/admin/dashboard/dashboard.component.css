@@ -1,0 +1,135 @@
+.kpi-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.kpi-card {
+    background-color: var(--secondary-background-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 150px;
+    transition: transform var(--transition-speed) ease-in-out;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+}
+
+.kpi-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.kpi-icon {
+    font-size: 32px;
+    color: var(--primary-color);
+    margin-right: 15px;
+    background-color: var(--light-accent);
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.kpi-card:nth-child(2) .kpi-icon {
+    color: var(--secondary-color);
+    background-color: var(--menu-bg);
+}
+
+.kpi-card:nth-child(3) .kpi-icon {
+    color: var(--accent-color);
+    background-color: var(--primary-background-color);
+}
+
+.kpi-title {
+    margin: 5px;
+    font-size: 18px;
+    color: var(--text-color-dark);
+    font-weight: 600;
+}
+
+.kpi-body {
+    margin-bottom: 15px;
+}
+
+.kpi-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1;
+}
+
+.kpi-description {
+    font-size: 14px;
+    color: var(--muted-text-color);
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.kpi-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    font-family: 'Roboto', sans-serif;
+}
+
+.kpi-trend {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.kpi-trend.positive {
+    color: var(--primary-color);
+}
+
+.kpi-trend.negative {
+    color: var(--error-color);
+}
+
+.kpi-trend i {
+    font-size: 20px;
+    margin-right: 4px;
+}
+
+.kpi-last-update {
+    font-size: 13px;
+    color: var(--muted-text-color);
+}
+
+.kpi-card.clickable {
+    cursor: pointer;
+}
+
+.kpi-card.clickable:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    padding: 40px;
+}
+
+
+@media (max-width: 991px){
+    .charts-container{
+        flex-direction: column;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -14,13 +14,14 @@ namespace LMS.Domain.HR.Models
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public LeaveType? LeaveType { get; set; }
+        public LeaveType LeaveType { get; set; }
         public LeaveStatus LeaveStatus { get; set; }
         public required string Reason { get; set; }
+        public bool IsPaid { get; set; }
 
 
         //Soft Delete
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } 
 
 
         public DateTime CreatedAt { get; set; }
@@ -36,6 +37,7 @@ namespace LMS.Domain.HR.Models
             Employee = null!;
             CreatedAt = DateTime.Now;
             UpdatedAt = DateTime.Now;
+            LeaveStatus = LeaveStatus.Pending;
         }
     }
 }

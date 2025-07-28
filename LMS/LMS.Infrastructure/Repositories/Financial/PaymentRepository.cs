@@ -1,5 +1,5 @@
 ﻿using LMS.Common.Exceptions;
-using LMS.Domain.Entities.Financial;
+using LMS.Domain.Financial.Models;
 using LMS.Infrastructure.DbContexts;
 
 namespace LMS.Infrastructure.Repositories.Financial

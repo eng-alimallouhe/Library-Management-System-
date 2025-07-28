@@ -1,0 +1,54 @@
+<app-alert [(visible)]="alertVisible" [message]="alertMessage" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>
+
+<div class="update-department-modal-backdrop" *ngIf="visible">
+    <div class="update-department-modal-content">
+        <div class="form-conatiner">
+            <div class="title-container title-container-normal">
+                <h1>
+                    {{ 'HR.DEPARTMENTS.UPDATE_DEPARTMENT.TITLE' | translate }}
+                    <span *ngIf="departmentInformation">{{ departmentInformation.departmentName }}</span>
+                    {{ 'HR.DEPARTMENTS.UPDATE_DEPARTMENT.INFORMATION' | translate }}
+                </h1>
+                <p>{{ 'HR.DEPARTMENTS.UPDATE_DEPARTMENT.DESCRIPTION_TEXT' | translate }}</p>
+            </div>
+
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                <div class="input-container">
+                    <input type="text" id="department-name" formControlName="departmentName" placeholder=" ">
+                    <label for="department-name">{{'HR.DEPARTMENTS.NAME' | translate }}</label>
+
+                    <span class="error" *ngIf="showError('departmentName')">
+                        {{ 'THIS_FIELD_IS_REQUIRED' | translate }}
+                    </span>
+                </div>
+
+                <div class="input-container">
+                    <textarea id="department-description" formControlName="departmentDescription" placeholder=" "
+                        rows="3"></textarea>
+                    <label for="department-description">{{'HR.DEPARTMENTS.DEPARTMENT_DESCRIPTION' |
+                        translate }}</label>
+
+                    <span class="error"
+                        *ngIf="showError('departmentDescription') && getControl('departmentDescription')?.errors?.['maxlength']">
+                        {{ 'MAX_LENGTH_EXCEEDED' | translate: {maxLength: 500} }}
+                    </span>
+                </div>
+
+                <div class="buttons-container">
+                    <div class="submit-wrapper">
+                        <input type="button" (click)="close()" value="{{'COMMON.CLOSE' | translate }}">
+                    </div>
+                    <div class="submit-wrapper">
+                        <div class="button-container">
+                            <input type="submit" [disabled]="isLoadingResult"
+                                value="{{isLoadingResult ? ('PLEASE_WAIT' | translate) : ('COMMON.SUBMIT' | translate)}}">
+                            <app-loader type="bar" *ngIf="isLoadingResult"></app-loader>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

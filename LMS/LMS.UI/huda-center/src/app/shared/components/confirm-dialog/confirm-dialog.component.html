@@ -1,0 +1,12 @@
+<!-- alert-modal.component.html -->
+<div class="modal-backdrop" *ngIf="visible">
+    <div class="modal-content" role="alertdialog" aria-modal="true" aria-labelledby="modalTitle"
+        aria-describedby="modalDesc">
+        <h2 id="modalTitle">{{'COMMON.CONFIRM_TITLE' | translate}}</h2>
+        <p id="modalDesc">{{ 'COMMON.CONFIRM_MASSAGE' | translate}}</p>
+        <div class="actions-wrapper">
+            <button class="confirm-btn" (click)="onConfirm()">{{'COMMON.CONFIRM' | translate }}</button>
+            <button class="cancel-btn" (click)="onCancel()">{{'COMMON.CANCEL' | translate }}</button>
+        </div>
+    </div>
+</div>

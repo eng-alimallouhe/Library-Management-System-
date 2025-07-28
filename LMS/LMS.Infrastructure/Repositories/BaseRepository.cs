@@ -1,11 +1,14 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using LMS.Application.Abstractions.Repositories;
 using LMS.Common.Exceptions;
-using LMS.Domain.Abstractions.Repositories;
 using LMS.Domain.Abstractions.Specifications;
 using LMS.Infrastructure.DbContexts;
 using LMS.Infrastructure.Specifications;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace LMS.Infrastructure.Repositories
 {
@@ -24,7 +27,7 @@ namespace LMS.Infrastructure.Repositories
         
         public async Task<(ICollection<TEntity> items, int count)> GetAllAsync(ISpecification<TEntity> specification)
         {
-            var count = SpecificationQueryBuilder.GetQuery(_dbSet, specification, false).Count();
+            var count = _dbSet.Where(specification.Criteria!).Count();
             var query = SpecificationQueryBuilder.GetQuery(_dbSet, specification, true);
             return (await query.ToListAsync(), count);
         }
@@ -45,10 +48,16 @@ namespace LMS.Infrastructure.Repositories
 
 
 
-        public async Task<TEntity?> GetByExpressionAsync(Expression<Func<TEntity, bool>> expression)
+        public async Task<TEntity?> GetByExpressionAsync(Expression<Func<TEntity, bool>> expression, bool isTrackingEnable)
         {
-            var query = _context.Set<TEntity>();
-            return await query.FirstOrDefaultAsync(expression);
+            if (isTrackingEnable)
+            {
+                return await _dbSet.FirstOrDefaultAsync(expression);
+            }
+            else
+            {
+                return await _dbSet.AsNoTracking().FirstOrDefaultAsync(expression);
+            }
         }
 
 
@@ -63,26 +72,11 @@ namespace LMS.Infrastructure.Repositories
             try
             {
                 await _dbSet.AddAsync(entity);
-                await _context.SaveChangesAsync();
                 return entity;
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEX)
             {
                 throw new DatabaseException(sqlEX.Message, sqlEX.Number);
-            }
-        }
-
-
-        public async Task UpdateAsync(TEntity entity)
-        {
-            try
-            {
-                _dbSet.Update(entity);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx)
-            {
-                throw new DatabaseException(ex.Message, sqlEx.Number);
             }
         }
 
@@ -95,7 +89,6 @@ namespace LMS.Infrastructure.Repositories
                 try
                 {
                     _dbSet.Remove(entity);
-                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEX)
                 {
@@ -107,6 +100,47 @@ namespace LMS.Infrastructure.Repositories
             {
                 throw new EntityNotFoundException("The entity with the specified ID was not found.");
             }
+        }
+
+        public async Task<ICollection<TEntity>> GetAllByExpressionAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            var query = _context.Set<TEntity>();
+            return await query.AsTracking().Where(expression).ToListAsync();
+        }
+
+        public async Task AddRangeAsync(ICollection<TEntity> items)
+        {
+            await _dbSet.AddRangeAsync(items);
+        }
+
+        
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            return await _dbSet.CountAsync(expression);
+        }
+
+
+        public async Task<List<TResult>> ProjectToListAsync<TResult>(ISpecification<TEntity> spec, IConfigurationProvider configuration)
+        {
+            var query = SpecificationQueryBuilder.GetQuery(_dbSet, spec, true);
+            return await query
+                .ProjectTo<TResult>(configuration)
+                .ToListAsync();
+        }
+
+
+
+        public async Task SaveChangeAsunc()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<TResult?> ProjectToEntityAsync<TResult>(ISpecification<TEntity> spec, IConfigurationProvider configuration)
+        {
+            var query = SpecificationQueryBuilder.GetQuery(_dbSet, spec, true);
+            return await query
+                .ProjectTo<TResult>(configuration)
+                .FirstOrDefaultAsync();
         }
     }
 }

@@ -1,0 +1,90 @@
+<!-- src/app/components/hr/leaves/edit-leave/edit-leave.component.html -->
+
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>
+
+<div class="update-department-modal-backdrop" *ngIf="visible">
+    <div class="update-department-modal-content" >
+        <app-loader type="circle" *ngIf="isLoadingResult"></app-loader>
+        <div class="form-conatiner" *ngIf="!isLoadingResult">
+            <div class="title-container title-container-normal">
+                <h1>
+                    {{ 'HR.LEAVES.UPDATE_LEAVE.TITLE' | translate }}
+                    <span *ngIf="leaveInformation">{{ leaveInformation.employeeName }}</span>
+                    {{ 'HR.LEAVES.UPDATE_LEAVE.INFORMATION' | translate }}
+                </h1>
+                <p>{{ 'HR.LEAVES.UPDATE_LEAVE.DESCRIPTION' | translate }}</p>
+            </div>
+
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                <div class="input-container">
+                    <input type="text" id="employeeName" formControlName="employeeName" placeholder=" " readonly>
+                    <label for="employeeName">{{ 'HR.LEAVES.EMPLOYEE_NAME' | translate }}</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="date" id="startDate" formControlName="startDate" placeholder=" ">
+                    <label for="startDate">{{ 'HR.LEAVES.START_DATE' | translate }}</label>
+                    <span class="error" *ngIf="showError('startDate')">
+                        <span *ngIf="getControl('startDate')?.errors?.['required']">
+                            {{ 'VALIDATION.START_DATE_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="input-container">
+                    <input type="date" id="endDate" formControlName="endDate" placeholder=" ">
+                    <label for="endDate">{{ 'HR.LEAVES.END_DATE' | translate }}</label>
+                    <span class="error" *ngIf="showError('endDate')">
+                        <span *ngIf="getControl('endDate')?.errors?.['required']">
+                            {{ 'VALIDATION.END_DATE_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+                <span class="error"
+                    *ngIf="updateForm.get('endDate')?.errors?.['dateRangeInvalid'] && (updateForm.dirty || updateForm.touched || isSubmitted)">
+                    {{ 'VALIDATION.DATE_RANGE_INVALID' | translate }}
+                </span>
+
+                <div class="input-container">
+                    <select id="leaveType" formControlName="leaveType">
+                        <option [ngValue]="null" disabled selected>{{ 'COMMON.SELECT_OPTION' | translate }}</option>
+                        <option *ngFor="let option of leaveTypeOptions" [ngValue]="option.value">
+                            {{ option.label | translate }}
+                        </option>
+                    </select>
+                    <label for="leaveType">{{ 'HR.LEAVES.TYPE' | translate }}</label>
+                    <span class="error" *ngIf="showError('leaveType')">
+                        <span *ngIf="getControl('leaveType')?.errors?.['required']">
+                            {{ 'VALIDATION.LEAVE_TYPE_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="input-container">
+                    <textarea id="reason" formControlName="reason" rows="3" placeholder=" "></textarea>
+                    <label for="reason">{{ 'HR.LEAVES.REASON' | translate }}</label>
+                    <span class="error" *ngIf="showError('reason')">
+                        <span *ngIf="getControl('reason')?.errors?.['required']">
+                            {{ 'VALIDATION.REASON_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="buttons-container">
+                    <div class="submit-wrapper">
+                        <input type="button" (click)="closeModal()" value="{{'COMMON.CLOSE' | translate }}">
+                    </div>
+                    <div class="submit-wrapper">
+                        <div class="button-container">
+                            <input type="submit" [disabled]="isLoadingResult"
+                                value="{{isLoadingResult ? ('COMMON.PLEASE_WAIT' | translate) : ('COMMON.SUBMIT' | translate)}}">
+                            <div class="line-loader" *ngIf="isLoadingResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

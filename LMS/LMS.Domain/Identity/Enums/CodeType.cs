@@ -3,7 +3,7 @@
     public enum CodeType
     {
         TowFA = 0,
-        SignUp = 1,
+        AccountActivation = 1,
         ResetPassword = 2
     }
 }

@@ -1,0 +1,20 @@
+<div class="inner-chart">
+    <h2 *ngIf="!isLoadingSalesChart" class="chart-title">{{ 'CHARTS.SALES_CHART.SALES_COMPARISON_TITLE' | translate }}</h2>
+    <app-loader *ngIf="isLoadingSalesChart" type="circle"></app-loader>
+
+    <ng-container *ngIf="salesChartOptions; else noSalesChartDataTemplate">
+        <apx-chart [chart]="salesChartOptions.chart!" [series]="salesChartOptions.series!"
+            [xaxis]="salesChartOptions.xaxis!" [yaxis]="salesChartOptions.yaxis!"
+            [dataLabels]="salesChartOptions.dataLabels!" [grid]="salesChartOptions.grid!"
+            [stroke]="salesChartOptions.stroke!" [title]="salesChartOptions.title!"
+            [tooltip]="salesChartOptions.tooltip!" [plotOptions]="salesChartOptions.plotOptions!"
+            [fill]="salesChartOptions.fill!" [legend]="salesChartOptions.legend!">
+        </apx-chart>
+    </ng-container>
+
+    <ng-template #noSalesChartDataTemplate>
+        <div class="no-data-message" *ngIf="!isLoadingSalesChart">
+            <p>{{ 'CHARTS.NO_SALES_DATA' | translate }}</p>
+        </div>
+    </ng-template>
+</div>

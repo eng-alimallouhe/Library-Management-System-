@@ -1,0 +1,54 @@
+2025-06-21 20:00:48.094 +03:00 [INF] Now listening on: https://localhost:7220
+2025-06-21 20:00:48.170 +03:00 [INF] Now listening on: http://localhost:5231
+2025-06-21 20:00:48.307 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-21 20:00:48.312 +03:00 [INF] Hosting environment: Development
+2025-06-21 20:00:48.316 +03:00 [INF] Content root path: D:\Projects\Library Management System\LMS\LMS.API
+2025-06-21 20:00:49.284 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger - null null
+2025-06-21 20:00:49.613 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger - 301 0 null 344.1543ms
+2025-06-21 20:00:49.623 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/index.html - null null
+2025-06-21 20:00:49.728 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/index.html - 200 null text/html;charset=utf-8 104.8673ms
+2025-06-21 20:00:49.733 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-21 20:00:49.733 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/swagger-ui.css - null null
+2025-06-21 20:00:49.782 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 48.8719ms
+2025-06-21 20:00:49.734 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/swagger-ui-standalone-preset.js - null null
+2025-06-21 20:00:49.746 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/_vs/browserLink - null null
+2025-06-21 20:00:49.733 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/swagger-ui-bundle.js - null null
+2025-06-21 20:00:49.840 +03:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2025-06-21 20:00:49.840 +03:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2025-06-21 20:00:49.844 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/swagger-ui-standalone-preset.js - 200 230280 text/javascript 109.8563ms
+2025-06-21 20:00:49.847 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/swagger-ui.css - 200 152034 text/css 114.3056ms
+2025-06-21 20:00:49.874 +03:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2025-06-21 20:00:49.879 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/swagger-ui-bundle.js - 200 1456926 text/javascript 145.9998ms
+2025-06-21 20:00:49.918 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/_vs/browserLink - 200 null text/javascript; charset=UTF-8 172.5304ms
+2025-06-21 20:00:50.113 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - null null
+2025-06-21 20:00:50.133 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 19.8185ms
+2025-06-21 20:00:50.137 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/favicon-32x32.png - null null
+2025-06-21 20:00:50.146 +03:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2025-06-21 20:00:50.148 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/favicon-32x32.png - 200 628 image/png 11.241ms
+2025-06-21 20:01:04.322 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/WeatherForecast - null null
+2025-06-21 20:01:04.349 +03:00 [INF] Executing endpoint 'LMS.API.Controllers.WeatherForecastController.Get (LMS.API)'
+2025-06-21 20:01:04.408 +03:00 [INF] Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[LMS.API.WeatherForecast] Get() on controller LMS.API.Controllers.WeatherForecastController (LMS.API).
+2025-06-21 20:01:04.442 +03:00 [INF] Executing ObjectResult, writing value of type 'LMS.API.WeatherForecast[]'.
+2025-06-21 20:01:04.502 +03:00 [INF] Executed action LMS.API.Controllers.WeatherForecastController.Get (LMS.API) in 77.3108ms
+2025-06-21 20:01:04.510 +03:00 [INF] Executed endpoint 'LMS.API.Controllers.WeatherForecastController.Get (LMS.API)'
+2025-06-21 20:01:04.512 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/WeatherForecast - 200 null application/json; charset=utf-8 190.9069ms
+2025-06-21 20:18:53.518 +03:00 [INF] Now listening on: https://localhost:7220
+2025-06-21 20:18:53.582 +03:00 [INF] Now listening on: http://localhost:5231
+2025-06-21 20:18:53.703 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-21 20:18:53.708 +03:00 [INF] Hosting environment: Development
+2025-06-21 20:18:53.712 +03:00 [INF] Content root path: D:\Projects\Library Management System\LMS\LMS.API
+2025-06-21 20:18:54.431 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/index.html - null null
+2025-06-21 20:18:54.808 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/index.html - 200 null text/html;charset=utf-8 382.4144ms
+2025-06-21 20:18:54.818 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-21 20:18:54.820 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/_vs/browserLink - null null
+2025-06-21 20:18:54.859 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - 200 16499 application/javascript; charset=utf-8 41.3251ms
+2025-06-21 20:18:55.010 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/_vs/browserLink - 200 null text/javascript; charset=UTF-8 189.5469ms
+2025-06-21 20:18:55.091 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - null null
+2025-06-21 20:18:55.125 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 33.1338ms
+2025-06-21 20:19:01.091 +03:00 [INF] Request starting HTTP/2 GET https://localhost:7220/WeatherForecast - null null
+2025-06-21 20:19:01.123 +03:00 [INF] Executing endpoint 'LMS.API.Controllers.WeatherForecastController.Get (LMS.API)'
+2025-06-21 20:19:01.188 +03:00 [INF] Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[LMS.API.WeatherForecast] Get() on controller LMS.API.Controllers.WeatherForecastController (LMS.API).
+2025-06-21 20:19:01.229 +03:00 [INF] Executing ObjectResult, writing value of type 'LMS.API.WeatherForecast[]'.
+2025-06-21 20:19:01.304 +03:00 [INF] Executed action LMS.API.Controllers.WeatherForecastController.Get (LMS.API) in 92.9534ms
+2025-06-21 20:19:01.311 +03:00 [INF] Executed endpoint 'LMS.API.Controllers.WeatherForecastController.Get (LMS.API)'
+2025-06-21 20:19:01.317 +03:00 [INF] Request finished HTTP/2 GET https://localhost:7220/WeatherForecast - 200 null application/json; charset=utf-8 225.5966ms

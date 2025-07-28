@@ -1,0 +1,75 @@
+<!-- src/app/components/hr/penalties/edit-penalty/edit-penalty.component.html -->
+
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>
+
+
+<div class="update-department-modal-backdrop" *ngIf="visible"> <!-- استخدام نفس كلاسات المودال -->
+    <div class="update-department-modal-content"> <!-- استخدام نفس كلاسات المودال -->
+        <app-loader type="circle" *ngIf="isLoadingResult"></app-loader> <!-- استخدام isLoadingResult -->
+        <div class="form-conatiner" *ngIf="!isLoadingResult">
+            <div class="title-container title-container-normal">
+                <h1>
+                    {{ 'HR.PENALTIES.UPDATE_PENALTY.TITLE' | translate }}
+                    <span *ngIf="penaltyInformation">{{ penaltyInformation.employeeName }}</span>
+                    {{ 'HR.PENALTIES.UPDATE_PENALTY.INFORMATION' | translate }}
+                </h1>
+                <p>{{ 'HR.PENALTIES.UPDATE_PENALTY.DESCRIPTION' | translate }}</p>
+            </div>
+
+
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()"> <!-- استخدام updateForm -->
+                <div class="input-container">
+                    <input type="text" id="employeeName" formControlName="employeeName" placeholder=" " readonly>
+                    <label for="employeeName">{{ 'HR.PENALTIES.EMPLOYEE_NAME' | translate }}</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="number" id="amount" formControlName="amount" placeholder=" ">
+                    <label for="amount">{{ 'HR.PENALTIES.AMOUNT' | translate }}</label>
+                    <span class="error" *ngIf="showError('amount')">
+                        <span *ngIf="getControl('amount')?.errors?.['required']">
+                            {{ 'VALIDATION.AMOUNT_REQUIRED' | translate }}
+                        </span>
+                        <span *ngIf="getControl('amount')?.errors?.['min']">
+                            {{ 'VALIDATION.AMOUNT_MIN' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="input-container">
+                    <textarea id="reason" formControlName="reason" rows="3" placeholder=" "></textarea>
+                    <label for="reason">{{ 'HR.PENALTIES.REASON' | translate }}</label>
+                    <span class="error" *ngIf="showError('reason')">
+                        <span *ngIf="getControl('reason')?.errors?.['required']">
+                            {{ 'VALIDATION.REASON_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="custom-file-wrapper">
+                    <label for="decisionFileInput" class="custom-file-label">
+                        <i class="material-icons">upload</i>
+                        <span class="file-text">{{ decisionFile?.name ||
+                            ('HR.PENALTIES.DECISION_FILE_UPLOAD_PLACEHOLDER' | translate) }}</span>
+                    </label>
+                    <input type="file" id="decisionFileInput" (change)="onDecisionFileSelected($event)"
+                        accept="application/pdf" />
+                </div>
+                <div class="buttons-container">
+                    <div class="submit-wrapper">
+                        <input type="button" (click)="closeModal()" value="{{'COMMON.CLOSE' | translate }}">
+                    </div>
+                    <div class="submit-wrapper">
+                        <div class="button-container">
+                            <input type="submit" [disabled]="isLoadingResult"
+                                value="{{isLoadingResult ? ('COMMON.PLEASE_WAIT' | translate) : ('COMMON.SUBMIT' | translate)}}">
+                            <div class="line-loader" *ngIf="isLoadingResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

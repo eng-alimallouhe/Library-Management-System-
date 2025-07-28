@@ -1,0 +1,300 @@
+/* حافظ على تصميم Hamburger icon كما هو، ولكن لا تخفيه على الشاشات الكبيرة */
+.hamburger-icon-container {
+    position: fixed;
+    top: 10px;
+    left: 15px;
+    z-index: 1001;
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    box-shadow: var(--box-shadow-light);
+}
+
+.hamburger-button {
+    background: none;
+    border: none;
+    color: var(--text-color-light);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.menu-container {
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--menu-bg);
+    color: var(--menu-text);
+    overflow-y: auto;
+    padding: 20px 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    border-right: solid 1px var(--border-color);
+    transition: transform var(--transition-speed) ease-in-out, box-shadow var(--transition-speed) ease-in-out;
+    z-index: 1000;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    /* جعلها مغلقة بشكل افتراضي على جميع الشاشات */
+    transform: translateX(-100%);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.25);
+    /* أضف ظل ليعطي إحساسًا بأنها مطوية */
+}
+
+/* عندما تكون القائمة مفتوحة */
+.menu-container.show-menu {
+    transform: translateX(0);
+}
+
+.menu-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+}
+
+.menu-container::-webkit-scrollbar-thumb,
+.menu-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Branding */
+.app-branding-section {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-container {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.logo-container svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--primary-color);
+}
+
+.logo-container .cls-1 {
+    fill: var(--primary-color);
+}
+
+.app-branding-section h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Menu Links */
+.menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 14px 25px;
+    color: var(--menu-text);
+    text-decoration: none;
+    font-size: 17px;
+    border-radius: 4px;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.menu-item a:hover {
+    background-color: var(--menu-hover-bg);
+    color: var(--primary-color);
+}
+
+.menu-item a.active {
+    background-color: var(--menu-active-bg);
+    color: var(--primary-color);
+    font-weight: 600;
+    border-left: 5px solid var(--primary-color);
+    padding-left: 15px;
+}
+
+.menu-item i {
+    margin-right: 15px;
+    font-size: 24px;
+    color: var(--secondary-color);
+    transition: color var(--transition-speed);
+}
+
+.menu-item a.active i,
+.menu-item a:hover i {
+    color: var(--primary-color);
+}
+
+/* Submenus */
+.menu-item.has-submenu {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+}
+
+.parent-menu-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    color: var(--menu-text);
+    font-size: 17px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.parent-menu-item:hover {
+    background-color: var(--menu-hover-bg);
+    color: var(--primary-color);
+}
+
+.parent-menu-item .expand-icon {
+    margin-left: auto;
+    color: var(--secondary-color);
+    transition: transform var(--transition-speed);
+}
+
+.parent-menu-item .expand-icon.expanded {
+    transform: rotate(360deg);
+    color: var(--primary-color);
+}
+
+.submenu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: var(--submenu-bg);
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-speed);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.submenu-list.open {
+    max-height: 500px;
+}
+
+.submenu-item a {
+    display: flex;
+    align-items: center;
+    padding: 10px 35px;
+    color: var(--menu-text);
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 0;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.submenu-item a:hover {
+    background-color: var(--submenu-item-hover-bg);
+    color: var(--primary-color);
+}
+
+.submenu-item a.active {
+    background-color: var(--submenu-item-active-bg);
+    color: var(--primary-color);
+    font-weight: 500;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 32px;
+}
+
+/* Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed), visibility var(--transition-speed);
+    cursor: pointer;
+}
+
+.menu-overlay.active-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* قم بإزالة أي منطق خاص بالشاشات الكبيرة يفتح القائمة تلقائيًا */
+/* هذا الجزء هو الأهم لتغيير السلوك على الشاشات الكبيرة */
+@media (max-width: 991px) {
+
+    /* حافظ على هذا الجزء للموبايل، فهو يضمن إخفاء القائمة افتراضيًا على الموبايل */
+    .hamburger-icon-container {
+        display: block;
+        /* تأكد من ظهوره على الموبايل */
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding-top: 80px;
+        /* يمكن تعديل هذا حسب تصميمك الكلي */
+    }
+}
+
+@media (min-width: 992px) {
+
+    /* لا تخفِ زر الهامبرغر على الشاشات الكبيرة */
+    .hamburger-icon-container {
+        display: block;
+    }
+
+    /* اجعل القائمة مغلقة دائمًا بشكل افتراضي على الشاشات الكبيرة */
+    .menu-container {
+        transform: translateX(-100%);
+        /* تأكد من أنها تبدأ مخفية */
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.25);
+        /* أضف ظل */
+    }
+
+    /* عندما تكون مفتوحة، تتحرك إلى الداخل */
+    .menu-container.show-menu {
+        transform: translateX(0);
+    }
+
+    /* تعديل هامش المحتوى الرئيسي عندما تكون القائمة مفتوحة */
+    .main-content {
+        margin-left: 0;
+        /* ابدأ دائمًا بدون هامش جانبي من القائمة */
+        width: 100%;
+        padding-top: 20px;
+        transition: margin-left var(--transition-speed), width var(--transition-speed);
+    }
+
+    /* إذا كان لديك عنصر main-content وتود أن يتحرك عند فتح القائمة، أضف هذا */
+    body.menu-open .main-content {
+        /* افترض أنك ستضيف class 'menu-open' إلى body عندما تكون القائمة مفتوحة */
+        margin-left: 280px;
+        /* عرض القائمة */
+        width: calc(100% - 280px);
+    }
+}

@@ -1,0 +1,180 @@
+<!-- src/app/products/add-product/add-product.component.html -->
+
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>
+
+<div class="add-product-modal-backdrop" *ngIf="visible">
+    <div class="add-product-modal-content">
+        <app-loader type="circle" *ngIf="isLoadingResult"></app-loader>
+        <div class="form-conatiner" *ngIf="!isLoadingResult && addForm">
+            <div class="title-container title-container-normal">
+                <h1>{{ 'PRODUCTS.ADD_PRODUCT.TITLE' | translate }}</h1>
+                <p>{{ 'PRODUCTS.ADD_PRODUCT.DESCRIPTION_TEXT' | translate }}</p>
+            </div>
+
+            <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+                <!-- حقل اسم المنتج (عربي) -->
+                <div class="input-container">
+                    <input type="text" id="arProductName" formControlName="arProductName" placeholder=" ">
+                    <label for="arProductName">{{ 'PRODUCTS.ADD_PRODUCT.AR_NAME' | translate }}</label>
+                    <span class="error" *ngIf="showError('arProductName')">
+                        <span *ngIf="getControl('arProductName')?.errors?.['required']">
+                            {{ 'VALIDATION.REQUIRED_FIELD' | translate }}
+                        </span>
+                        <span *ngIf="getControl('arProductName')?.errors?.['maxlength']">
+                            {{ 'VALIDATION.MAX_LENGTH_EXCEEDED' | translate: {maxLength: 255} }}
+                        </span>
+                    </span>
+                </div>
+
+                <!-- حقل وصف المنتج (عربي) -->
+                <div class="input-container">
+                    <textarea id="arProductDescription" formControlName="arProductDescription" rows="3"
+                        placeholder=" "></textarea>
+                    <label for="arProductDescription">{{ 'PRODUCTS.ADD_PRODUCT.AR_DESCRIPTION' | translate }}</label>
+                    <span class="error" *ngIf="showError('arProductDescription')">
+                        <span *ngIf="getControl('arProductDescription')?.errors?.['required']">
+                            {{ 'VALIDATION.REQUIRED_FIELD' | translate }}
+                        </span>
+                        <span *ngIf="getControl('arProductDescription')?.errors?.['maxlength']">
+                            {{ 'VALIDATION.MAX_LENGTH_EXCEEDED' | translate: {maxLength: 1000} }}
+                        </span>
+                    </span>
+                </div>
+
+                <!-- حقل اسم المنتج (إنجليزي) -->
+                <div class="input-container">
+                    <input type="text" id="enProductName" formControlName="enProductName" placeholder=" ">
+                    <label for="enProductName">{{ 'PRODUCTS.ADD_PRODUCT.EN_NAME' | translate }}</label>
+                    <span class="error" *ngIf="showError('enProductName')">
+                        <span *ngIf="getControl('enProductName')?.errors?.['required']">
+                            {{ 'VALIDATION.REQUIRED_FIELD' | translate }}
+                        </span>
+                        <span *ngIf="getControl('enProductName')?.errors?.['maxlength']">
+                            {{ 'VALIDATION.MAX_LENGTH_EXCEEDED' | translate: {maxLength: 255} }}
+                        </span>
+                    </span>
+                </div>
+
+                <!-- حقل وصف المنتج (إنجليزي) -->
+                <div class="input-container">
+                    <textarea id="enProductDescription" formControlName="enProductDescription" rows="3"
+                        placeholder=" "></textarea>
+                    <label for="enProductDescription">{{ 'PRODUCTS.ADD_PRODUCT.EN_DESCRIPTION' | translate }}</label>
+                    <span class="error" *ngIf="showError('enProductDescription')">
+                        <span *ngIf="getControl('enProductDescription')?.errors?.['required']">
+                            {{ 'VALIDATION.REQUIRED_FIELD' | translate }}
+                        </span>
+                        <span *ngIf="getControl('enProductDescription')?.errors?.['maxlength']">
+                            {{ 'VALIDATION.MAX_LENGTH_EXCEEDED' | translate: {maxLength: 1000} }}
+                        </span>
+                    </span>
+                </div>
+
+                <!-- حقل سعر المنتج -->
+                <div class="input-container">
+                    <input type="number" id="productPrice" formControlName="productPrice" placeholder=" " min="0.01"
+                        step="0.01">
+                    <label for="productPrice">{{ 'PRODUCTS.ADD_PRODUCT.PRICE' | translate }}</label>
+                    <span class="error" *ngIf="showError('productPrice')">
+                        <span *ngIf="getControl('productPrice')?.errors?.['required']">
+                            {{ 'VALIDATION.REQUIRED_FIELD' | translate }}
+                        </span>
+                        <span *ngIf="getControl('productPrice')?.errors?.['min']">
+                            {{ 'VALIDATION.MIN_VALUE' | translate: {minValue: 0.01} }}
+                        </span>
+                    </span>
+                </div>
+
+                <!-- حقل كمية المخزون -->
+                <div class="input-container">
+                    <input type="number" id="productStock" formControlName="productStock" placeholder=" " min="0"
+                        step="1">
+                    <label for="productStock">{{ 'PRODUCTS.ADD_PRODUCT.STOCK' | translate }}</label>
+                    <span class="error" *ngIf="showError('productStock')">
+                        <span *ngIf="getControl('productStock')?.errors?.['required']">
+                            {{ 'VALIDATION.REQUIRED_FIELD' | translate }}
+                        </span>
+                        <span *ngIf="getControl('productStock')?.errors?.['min']">
+                            {{ 'VALIDATION.MIN_VALUE' | translate: {minValue: 0} }}
+                        </span>
+                        <span *ngIf="getControl('productStock')?.errors?.['pattern']">
+                            {{ 'VALIDATION.INTEGER_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <!-- حقل اختيار التصنيفات (Single select + Add button) -->
+                <div class="input-container category-selection-container">
+                    <div class="select-with-button">
+                        <select id="singleCategorySelect" [(ngModel)]="selectedCategoryIdToAdd"
+                            [ngModelOptions]="{standalone: true}" class="category-select">
+                            <option value="" disabled selected>{{ 'PRODUCTS.ADD_PRODUCT.SELECT_CATEGORY_PLACEHOLDER' |
+                                translate }}</option>
+                            <option [ngValue]="category.categoryId" *ngFor="let category of categories$ | async">
+                                {{ category.categoryName }}
+                            </option>
+                        </select>
+                        <label for="singleCategorySelect">{{ 'PRODUCTS.ADD_PRODUCT.CATEGORIES' | translate }}</label>
+                        <button type="button" class="add-category-button" (click)="addCategory()"
+                            [disabled]="!selectedCategoryIdToAdd">
+                            <i class="material-icons">add</i>
+                        </button>
+                    </div>
+
+                    <!-- رسالة خطأ للتصنيفات -->
+                    <span class="error" *ngIf="showError('categoriesIds')">
+                        <span *ngIf="getControl('categoriesIds')?.errors?.['minSelected']">
+                            {{ 'VALIDATION.MIN_ONE_CATEGORY_REQUIRED' | translate }}
+                        </span>
+                    </span>
+
+                    <!-- عرض أسماء التصنيفات المختارة مع زر الحذف -->
+                    <div *ngIf="selectedCategoriesForDisplay.length > 0" class="selected-categories-display">
+                        <span *ngFor="let category of selectedCategoriesForDisplay" class="selected-category-tag">
+                            {{ category.categoryName }}
+                            <button type="button" class="remove-category-button"
+                                (click)="removeCategory(category.categoryId)">
+                                <i class="material-icons">close</i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- حقل تحميل الصورة -->
+                <div class="custom-file-wrapper">
+                    <label for="imageFile" class="custom-file-label">
+                        <i class="material-icons">cloud_upload</i> 
+                        <span *ngIf="!selectedImageFile">{{ 'PRODUCTS.ADD_PRODUCT.UPLOAD_IMAGE' | translate }}</span>
+                        <span class="file-text" *ngIf="selectedImageFile">{{ selectedImageFile.name }}</span>
+                    </label>
+                    <input type="file" id="imageFile" (change)="onFileSelected($event)" accept="image/*"
+                        style="display: none;">
+                </div>
+                <div *ngIf="imageUrlPreview" class="image-preview-container">
+                    <img [src]="imageUrlPreview" alt="Image Preview" class="image-preview">
+                </div>
+                <span class="error" *ngIf="showError('imageFile')">
+                    <span *ngIf="getControl('imageFile')?.errors?.['required']">
+                        {{ 'VALIDATION.REQUIRED_FIELD' | translate }}
+                    </span>
+                </span>
+
+
+                <div class="buttons-container">
+                    <div class="submit-wrapper">
+                        <input type="button" (click)="closeModal()" value="{{'COMMON.CLOSE' | translate }}">
+                    </div>
+                    <div class="submit-wrapper">
+                        <div class="button-container">
+                            <input type="submit" [disabled]="isLoadingResult"
+                                value="{{isLoadingResult ? ('COMMON.PLEASE_WAIT' | translate) : ('COMMON.SUBMIT' | translate)}}">
+                            <div class="line-loader" *ngIf="isLoadingResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

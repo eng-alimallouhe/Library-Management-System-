@@ -1,0 +1,522 @@
+{
+
+    "AUTHENTICATION": {
+        "REGISTER": {
+            "PAGE_TITLE": "Register for the first time",
+            "WELCOM_MESSAGE": "Welcom to Huda Center",
+            "SIGN_UP": "Sign Up"
+        },
+
+        "OTP_CODE":{
+            "PAGE_TITLE": "Verify You Email",
+            "ENTER_CODE": "Enter the code has been sent to you email",
+            "OTP_CODE": "Verify Code",
+            "REQUEST_CODE": "Request a new code",
+            "VERIFY": "Verify"
+        },
+
+
+        "LOGIN": {
+            "WELLCOM_MESSAGE": "Welcome Back",
+            "LOGIN_TO_USE": "Please login to use the system",
+            "LOG_BUTTON": "Login",
+            "DO_NOT_HAVE_ACCOUNT": "Don't have an account?",
+            "FORGOT_PASSWORD": "Forgot your password?"
+        },
+
+        "RESET_PASSWORD": {
+            "FORGOT": "Reset it",
+            "PAGE_TITLE": "Reset Your Password",
+            "RESET_PASSWORD_DESCRIPTION": "ENter the new password",
+            "BACK_TO_LOGIN": "Back to login"
+        },
+
+        "COMMON": {
+            "FULL_NAME": "Full Name",
+            "USERNAME": "Username",
+            "EMAIL": "Email",
+            "PHONE_NUMBER": "Phone Number",
+            "PASSWORD": "Password",
+            "CONFIRM_PASSWORD": "Confirm Password",
+            "DO_YOU_HAVE_ACCOUNT": "Do you have an account",
+            "LOGIN": "Log in",
+
+            "MUST_INCLUDE_UPPERCASE": "include 1 uppercase atleast",
+            "MUST_INCLUDE_NUMBER": "include 1 number atleast",
+            "CHARS_MINIMUM": "include 8 digits atleast",
+
+            "RESET_PASSWORD": "Do It!",
+
+            "LOGOUT": "log out",
+
+            "THIS_FIELD_IS_REQUIRED": "This field is required",
+            "USER_NAME_UNAVALIABLE": "this username is already in use",
+            "NOT_MATCHING_PASSWORDS": "the entired passowrds are not the same",
+            "THIS_FIELD_CANT_CONTAIN_WHITESPACE": "don't use whitespaces",
+            "WEAK_PASSWORD": "the entired password is waek",
+            "INVALID_EMAIL": "provide a valide email address",
+            "HIT_MAX_ATTEMPTS": "you reached the max apttempts",
+            "MUST_ENTER_MORE_CHARS": "you must enter more characters",
+
+
+            "ACCOUNT_STILL_LOCKED" : "this account is currently locked"
+        },
+
+
+
+        "LOGIN_SUCCESS": "Login successful! Redirecting..."
+    },
+
+
+    "IDENTITY": {
+      "PROFILE": {
+        "MY_PROFILE": "my profile"
+      }  
+    },
+
+    "DAY_OF_WEEKS": {
+        "0": "Sunday",
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday",
+        "6": "Saturday"
+    },
+
+
+    "COMMON": {
+        "SITE_TITLE": "Huda Center",
+        "PLEASE_WAIT": "Please wait",
+        "CLOSE": "Close",
+        "ALERT": "Alert!",
+        "LOADING_DATA": "Loading data",
+        "TOTAL_VALUE": "Total Value",
+        "UPDATED_AT": "Updated At",
+        "ACTIONS": "Actions",
+        "NO_DATA_FOUND": "there is no data founded",
+        "NEXT_PAGE": "next page",
+        "PREVIOUS_PAGE": "previous page",
+        "SHOW": "show", 
+        "HIDE": "hide",
+        "SUBMIT": "Submit",
+        "ON_GOING": "On going",
+        "DAY": "Day",
+        "YES": "Yes",
+        "NO": "No",
+        "EDIT": "Edit",
+        "DELETE": "Delete",
+        "CONFIRM_TITLE": "Take a while",
+        "CONFIRM_MASSAGE": "Are You want to continue? Sure?",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel",
+        "ALL": "All",
+        "SELECT_OPTION": "Select Option",
+        "APPROVE": "Approve", 
+        "REJECT": "Reject",   
+        "DOWNLOAD_FILE": "Download File", 
+        "SAVE": "Save", 
+        "SAVING": "Saving",
+        "FORM_INVALID_FIELDS": "Please correct the invalid fields.",   
+        "SERVER_ERROR": "A server error occurred. Please try again later.",
+        "VIEW_FILE": "View File",
+        "ERROR_OCCURRED": "An error occurred. Please try again.",
+        "DESCENDING": "Descending",
+        "ASCENDING": "Ascending",
+        "VIEW_DETAILS": "View Details",
+        "ERROR_LOADING_DATA": "An error occurred while loading data. Please try again later."
+    },
+
+    "KPI": {
+        "TOTAL_USERS_TITLE": "Total Users",
+        "TOTAL_USERS_DESCRIPTION": "Overall registered users",
+        "EMPLOYEES_COUNT_TITLE": "Number of Employees",
+        "EMPLOYEES_DESCRIPTION": "Full-time employees",
+        "TOTAL_CUSTOMERS_TITLE": "Total Customers",
+        "ACTIVE_CUSTOMERS_DESCRIPTION": "Active customers",
+        "NEW_CUSTOMERS_TITLE": "New Customers",
+        "NEW_CUSTOMERS_DESCRIPTION": "Registered in the last month",
+        "TOTAL_ORDERS_TITLE": "Total Orders",
+        "TOTAL_ORDERS_DESCRIPTION": "Total orders in the system",
+        "TOTAL_BOOKS_TITLE": "Total Books",
+        "BOOKS_AVAILABLE_DESCRIPTION": "Available books",
+        "NEW_BOOKS_TITLE": "New Books",
+        "NEW_BOOKS_DESCRIPTION": "Added in the last month",
+        "COMPARISON_PREVIOUS_MONTH": "Compared to previous month",
+        "TOTAL_SALES_CHART_LABEL": "Total Sales",
+        "MONTHLY_SALES_CHART_TITLE": "Monthly Sales Comparison",
+        "MONTHS_AXIS_LABEL": "Month",
+        "SALES_AXIS_LABEL": "Sales"
+    },
+
+
+    "CHARTS": {
+        "SALES_CHART": {
+            "SALES_COMPARISON_TITLE": "Last Five Month Sales",
+            "SALES_CHART_XAXIS_TITLE": "Month",
+            "SALES_CHART_YAXIS_TITLE": "Sales"
+        },
+        "ORDERS_CHART": {
+            "ORDERS_CHART_TITLE": "Last Five Month Orders",
+            "ORDERS_CHART_XAXIS_TITLE": "Month",
+            "ORDERS_CHART_YAXIS_TITLE": "Orders Number",
+            "ORDERS_CHART_COLUMN_TITLE": "order number per month"
+        }
+    },
+
+
+    "MONTHS": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+    },
+
+
+
+    "LIBRARY_MANAGEMENT": {
+        "PRODUCTS": {
+            "PRODUCT_NAME": "Product Name",
+            "PRODUCT_STOCK": "Product Stock",
+            "PRODUCT_PRICE": "Product Price",
+            "LOGS_COUNT": "Logs Count",
+            "PRODUCTS_BELOW_THRESHOLD": "Products Below Threshold"
+        }
+    },
+
+    "HR": {
+        "EMPLOYEES": {
+            "DEPARTMENT_NAME": "current department",
+            "HIRE_DATE": "Hire date",
+            "ID": "employee id",
+            "FROM_DATE":"From date",
+            "TO_DATE":"To date",
+            "SEARCH_DEPARTMENT": "search by department",
+            "ADD_EMPLOYEE": "Add new employee",
+
+            "NEW_EMPLOYEE": {
+                "TITLE": "New Employee Form",
+                "DESCRIPTION": "Fill the fileds bellow",
+                "NAME": "employee name",
+                "BASE_SALARY": "base salary",
+                "EMAIL": "employee email",
+                "PHONE_NUMBER": "phone number",
+                "APPOINTMENT_FILE": "appointment file",
+                "FACE_IMAGE": "employee face picture",
+                "SELECT_DEPARTMENT": "select a department",
+                "INFROMATION": "Employee Credential Information"
+            },
+            "EMPLOYEE_DETAILS": {
+                "GENERAL_INFORMATION": "General Information",
+                "HISTORY_TITLE": "Employee History",
+                "PENALTIES_TITLE": "The Penalties",
+                "INCENTIVES_TITLE": "The Incentives",
+                "SALARIES_TITLE": "Salaries History",
+                "LEAVES_TITLE": "Leaves History",   
+                "DEPARTMENT": "Department Name",
+                "JOIN_DATE": "Joint Date",
+                "LEAVE_DATE": "Leave Date",
+                "IS_CURRENT": "Is Current",
+                "IS_MANAGER": "Was the manager",
+                "FINANCIAL_TITLE": "The revenues generated by the employee",
+                "ATTENDANCE_TITLE": "Attendance records for this month",
+                "DATE": "Date",
+                "TIME_IN": "Time in",
+                "TIME_OUT": "Time out"
+            },
+            "UPDATE_EMPLOYEE": {
+                "TITLE": "Update ",
+                "INFORMATION": "Information",
+                "DESCRIPTION": "alter the information bellow"
+            }
+        },
+
+        "DEPARTMENTS": {
+            "ADD_DEPARTMENT": "Add department",
+            "NAME": "Department Name",
+            "DEPARTMENT_DESCRIPTION": "Department Description",
+            "EMPLOYEE_COUNT": "Employees Number",
+            "CREATED_AT": "Added In",
+            "TITLE": "Departments",
+            "NEW_DEPARTMENT": {
+                "TITLE": "New Department Form",
+                "DESCRIPTION_TEXT": "Fill the fileds bellow"
+            },
+            "DEPARTMENT_DETAILS": {
+                "GENERAL_INFORMATION": "General Information",
+                "CURRENT_EMPLOYEES_TITLE": "Employees In Thie Department",
+                "FORMER_EMPLOYEES_TITLE": "Former Employees In this Department",
+                "CURRENT_ORDERS_TITLE": "Current Orders"
+            },
+
+            "UPDATE_DEPARTMENT": {
+                "TITLE":"Update ",
+                "INFORMATION": "Information",
+                "DESCRIPTION_TEXT":"Fill the fileds bellow"
+            }
+        },
+
+        "ATTENDANCES": {
+            "ABSENT": "absent"
+        },
+
+        "PENALTIES": {
+            "IS_APPLIED": "Is Applied",
+            "ADD_NEW_PENALTY": "Add new penalty",
+            "EMPLOYEE_NAME": "Employee name",
+            "AMOUNT": "Amount",
+            "REASON": "Reason",
+            "DECISION_DATE": "DeciSion Date",
+            "IS_APPROVED": "Is Approved",
+            "EDIT_PENALTY": "Edit Penalty",
+            "ADD_PENALTY_BUTTON": "Add Penalty",
+            "UPDATE_PENALTY": {
+                "TITLE": "Update Penalty",
+                "INFORMATION": "Information",
+                "DESCRIPTION": "Modify the penalty details below."
+            },
+            "AMOUNT_PLACEHOLDER": "Enter penalty amount",
+            "REASON_PLACEHOLDER": "Enter reason for penalty",
+            "DECISION_FILE": "Decision File",
+            "DECISION_FILE_UPLOAD_PLACEHOLDER_REQUIRED": "Upload Decision File (PDF)",
+            "CURRENT_FILE": "Current File",
+            "EDIT_SUCCESS": "Penalty updated successfully!",
+            "EDIT_FAILED": "Failed to update penalty.",
+            "DETAILS": {
+                "TITLE": "Penalty Information"
+            },
+            "NEW_PENALTY": {
+                "TITLE": "new Penalty Form"
+            }
+        },
+        "SALARIES": {
+            "MONTH": "Month",
+            "YEAR": "Year",
+            "BASE_SALARY": "Base Salary",
+            "TOTAL_INCENTIVES": "Total Incentives",
+            "TOTAL_PENALTIES": "Total Penalties",
+            "NET_SALARY": "Net Salary"
+        },
+        "LEAVES": {
+            "START_DATE": "Start Date",
+            "END_DATE": "End Date",
+            "TYPE": "Leave Type",
+            "ADD_LEAVE_REQUEST": "Request a new leave",
+            "STATUS": "Leave Status",
+            "IS_PAID": "Is Paid",
+            "NEW_LEAVE": {
+                "TITLE": "Submit New Leave Request",
+                "DESCRIPTION_TEXT": "Fill in the details below to submit a new leave request."
+            },
+            "ADD_SUCCESS": "Leave request submitted successfully!",
+            "ADD_FAILED": "Failed to submit leave request.",
+            "LEAVES": {
+                "LIST": {
+                "TITLE": "Leave Requests",
+                "EMPLOYEE_NAME": "Employee Name",
+                "START_DATE": "Start Date",
+                "END_DATE": "End Date",
+                "LEAVE_TYPE": "Leave Type",
+                "LEAVE_STATUS": "Status",
+                "IS_PAID": "Is Paid"
+                },
+                "STATUS": {
+                "PENDING": "Pending",
+                "APPROVED": "Approved",
+                "REJECTED": "Rejected",
+                "CANCELLED": "Cancelled"
+                },
+                "TYPE": {
+                "ANNUAL": "Annual",
+                "SICK": "Sick",
+                "UNPAID": "Unpaid",
+                "MATERNITY": "Maternity",
+                "PATERNITY": "Paternity",
+                "MARRIAGE": "Marriage",      
+                "DEATH": "Death",           
+                "STUDY": "Study",           
+                "HAJJ": "Hajj",             
+                "OFFICIALLEAVE": "Official Leave", 
+                "OTHER": "Other"
+                },
+                "ORDER_BY": {
+                "BY_EMPLOYEE_NAME": "By Employee Name",
+                "BY_START_DATE": "By Start Date",
+                "BY_END_DATE": "By End Date",
+                "BY_STATUS": "By Status",
+                "BY_TYPE": "By Type",
+                "BY_CREATED_AT": "By Created At"
+                }
+            },
+             "DETAILS": {
+                "TITLE": "Leave Request Details",
+                "EMPLOYEE_NAME": "Employee Name",
+                "START_DATE": "Start Date",
+                "END_DATE": "End Date",
+                "LEAVE_TYPE": "Leave Type",
+                "LEAVE_STATUS": "Status",
+                "IS_PAID": "Is Paid",
+                "REASON": "Reason",
+                "CREATED_AT": "Created At",
+                "UPDATED_AT": "Last Updated",
+                "NOT_FOUND": "Leave request details not found."
+             },
+             "UPDATE_LEAVE": {
+                "TITLE":"Update ",
+                "INFORMATION":"Information",
+                "DESCRIPTION":"Modify the leave details below."
+             }
+        },
+        "INCENTIVES": {
+            "LIST": {
+                "TITLE": "Incentives List",
+                "EMPLOYEE_NAME_FILTER": "Filter by Employee Name",
+                "AMOUNT_FROM": "Amount From",
+                "AMOUNT_TO": "Amount To",
+                "REASON_FILTER": "Filter by Reason",
+                "IS_PAID_FILTER": "Paid Status",
+                "IS_APPROVED_FILTER": "Approval Status",
+                "DATE_FROM": "Date From",
+                "DATE_TO": "Date To",
+                "EMPLOYEE_NAME": "Employee Name",
+                "AMOUNT": "Amount",
+                "REASON": "Reason",
+                "DATE": "Date",
+                "IS_PAID": "Is Paid",
+                "IS_APPROVED": "Is Approved"
+            },
+             "NEW_INCENTIVE": {
+                "TITLE": "Add New Incentive",
+                "DESCRIPTION": "Fill in the details below to add a new incentive for the employee.",
+                "AMOUNT": "Amount",
+                "REASON": "Reason",
+                "DECISION_FILE_UPLOAD_PLACEHOLDER_REQUIRED": "Upload Decision File (PDF) - Required"
+            },
+            "ADD_SUCCESS": "Incentive added successfully!",
+            "ADD_INCENTIVE_BUTTON": "Add Incentive",
+            "DETAILS": {
+                "TITLE": "Incentive Details",
+                "EMPLOYEE_NAME": "Employee Name",
+                "AMOUNT": "Amount",
+                "REASON": "Reason",
+                "DECISION_DATE": "Decision Date",
+                "DECISION_FILE": "Decision File",
+                "NO_DECISION_FILE": "No decision file available.",
+                "NOT_FOUND": "Incentive details not found.",
+                "IS_PAID": "Is Paid",
+                "IS_APPROVED": "Is Approved"
+            },
+            "UPDATE_INCENTIVE": {
+                "TITLE": "Update Incentive",
+                "INFORMATION": "Information",
+                "DESCRIPTION": "Update the details of the incentive below.",
+                "EMPLOYEE_NAME": "Employee Name",
+                "AMOUNT": "Amount",
+                "REASON": "Reason"
+            },
+            "DECISION_FILE_UPLOAD_PLACEHOLDER": "Upload Decision File (PDF)",
+            "EDIT_SUCCESS": "Incentive updated successfully!",
+            "IS_PAID": "Is Paid",
+            "CONFIRM_APPROVE_TITLE": "Confirm Incentive Approval",
+            "CONFIRM_APPROVE_MESSAGE": "Are you sure you want to approve this incentive? This action cannot be undone.",
+            "APPROVE_SUCCESS": "Incentive approved successfully!",
+            "APPROVE_FAILED": "Failed to approve incentive.",
+            "CONFIRM_REJECT_TITLE": "Confirm Incentive Rejection",
+            "CONFIRM_REJECT_MESSAGE": "Are you sure you want to reject this incentive? This action cannot be undone.",
+            "REJECT_SUCCESS": "Incentive rejected successfully!",
+            "REJECT_FAILED": "Failed to reject incentive.",
+            "CONFIRM_DELETE_TITLE": "Confirm Incentive Deletion",
+            "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete this incentive? This action cannot be undone.",
+            "DELETE_SUCCESS": "Incentive deleted successfully!",
+            "DELETE_FAILED": "Failed to delete incentive.",
+            "AMOUNT":"Amount",
+            "REASON":"Reason",
+            "DECISION_FILE_UPLOAD_PLACEHOLDER_REQUIRED":"Upload Decision File (PDF) - Required"
+        }
+    },
+
+
+    "FILTERS" : {
+        "APPLY_FILTERS": "Apply Filter",
+        "CLEAR_FILTERS": "Clear Filter",
+        "ONLY_ACTIVE": "include only active records",
+        "FILTER": "filter",
+        "FROM_DATE": "From date",
+        "TO_DATE": "To date",
+        "DATE_RANGE": "Date range",
+        "ACTIVE_RECORDS": "Record Status",
+        "EMPLOYEE_COUNT": "Filter By Employee Count",
+        "ORDER_BY": "Order By"
+    },
+
+    "ORDERS": {
+        "STATUS": "Order Status",
+        "CREATED_AT": "Added In",
+        "UPDATED_AT": "Last Updated",
+        "COST": "Order Cost",
+
+        "ORDER_STATUSES": {
+            "Pending": "Pending",
+            "Processing": "Processing",
+            "Shipped": "Shipped",
+            "Done": "Done",
+            "Cancelled": "Cancelled"
+        }
+    },
+
+    "MENU": {
+        "LIGHT_MODE": "Light theme",
+        "DARK_MODE": "Dark theme"
+    },
+
+
+    "SERVICES": {
+    },
+
+    "VALIDATION": {
+        "AMOUNT_REQUIRED": "Amount is required.",
+        "AMOUNT_MIN": "Amount must be greater than or equal to 0.",
+        "REASON_REQUIRED": "Reason is required.",
+        "LEAVE_TYPE_REQUIRED": "Leave type required",
+        "REQUIRED_FIELD": "This field is required.",
+        "MAX_LENGTH_EXCEEDED": "Maximum length exceeded ({maxLength} characters).",
+        "MIN_VALUE": "Minimum value is {minValue}.",
+        "INTEGER_REQUIRED": "Please enter a whole number.",
+        "FORM_INVALID_ERROR": "Please correct the errors in the form.",
+        "MIN_ONE_CATEGORY_REQUIRED": "Please select at least one category."
+    },
+
+    "PRODUCTS": {
+        "LIST": {
+            "TITLE": "Product List"
+        },
+        "ADD_PRODUCT": {
+            "TITLE": "Add New Product",
+            "DESCRIPTION_TEXT": "Fill in the details below to add a new product to the inventory.",
+            "AR_NAME": "Product Name (Arabic)",
+            "AR_DESCRIPTION": "Product Description (Arabic)",
+            "EN_NAME": "Product Name (English)",
+            "EN_DESCRIPTION": "Product Description (English)",
+            "PRICE": "Price",
+            "STOCK": "Stock Quantity",
+            "CATEGORIES": "Categories",
+            "UPLOAD_IMAGE": "Upload Product Image",
+            "SELECT_CATEGORY_PLACEHOLDER": "Select an category"
+        },
+        "ADD_SUCCESS": "Product added successfully!",
+        "ADD_FAILED": "Failed to add product.",
+        "ADD_NEW_PRODUCT": "Add New Product",
+        "PRICE": "Price",
+        "STOCK": "Stock",
+        "NO_PRODUCTS_FOUND": "No products found to display.",
+        "LOADING_PRODUCTS": "Loading products..."
+    }
+}

@@ -1,0 +1,28 @@
+.page-content-wrapper {
+    display: flex;
+    padding: 20px 0;
+    width: 98%;
+    margin: 20px auto;
+    justify-content: space-evenly;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    color: var(--text-color);
+}
+
+
+.employees-container {
+    width: calc(100% - 300px);
+}
+
+
+@media (max-width: 991px) {
+    .page-content-wrapper {
+        flex-direction: column-reverse;
+        padding: 15px;
+    }
+
+    .employees-container {
+        width: 100%;
+        padding-bottom: 100px;
+    }
+}

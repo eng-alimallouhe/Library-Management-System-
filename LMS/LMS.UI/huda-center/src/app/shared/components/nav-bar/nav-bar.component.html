@@ -1,0 +1,100 @@
+<header class="top-navbar" [class.menu-collapsed]="!isSideMenuExpanded" [class.menu-expanded]="isSideMenuExpanded">
+    <div class="search-icon-wrapper" (click)="toggleSearchInput()">
+        <i class="material-icons search-icon">search</i>
+    </div>
+
+    <div class="floating-search-container" [class.show]="showSearchInput">
+        <input type="text" placeholder="بحث..." class="search-input" (input)="onInput($event)">
+        <i class="material-icons close-search-icon" (click)="hideSearchInput()">close</i>
+    </div>
+
+    <div class="tools-container">
+        <div class="cart-container" (click)="navigateToCart()">
+            <i class="material-icons cart-icon">shopping_cart</i>
+            <span class="cart-badge" *ngIf="cartItemCount > 0">
+                {{ cartItemCount }}
+            </span>
+        </div>
+
+
+        <div class="notification-container">
+            <div class="notifications-container" (click)="toggleNotificationsDropdown()">
+                <i class="material-icons notification-icon">notifications</i>
+                <span class="notification-badge" *ngIf="unreadNotificationsCount > 0">
+                    {{ unreadNotificationsCount }}
+                </span>
+            </div>
+
+            <div class="notifications-wrapper" *ngIf="showNotificationsDropdown">
+                <div *ngIf="isLoadingNotification" class="loader-container">
+                    <app-loader type="circle" height="100%" messageKey="COMMON.LOADING"></app-loader>
+                </div>
+
+                <div *ngIf="!isLoadingNotification">
+                    <div class="notification-item" *ngFor="let notification of notifications"
+                        (click)="onNotificationClick(notification, $event)">
+                        <div class="top-notification-section">
+                            <i class="material-icons">notifications</i>
+                            <span>{{ notification.message }}</span>
+                        </div>
+                        <div class="notification-text">
+                            <small>{{ notification.createdAt | date:'short' }}</small>
+                        </div>
+
+                    </div>
+                    <div class="load-more" *ngIf="hasMore" (click)="loadMoreNotifications($event)">
+                        رؤية المزيد
+                    </div>
+                    <div *ngIf="notifications.length == 0" class="empty-notification">
+                        لا يوجد إشعارات حاليا
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="theme-container" (click)="toggleModesContainer()">
+            <i class="material-icons mode-icon">
+                {{ currentMode === 'dark_mode' ? 'dark_mode' : 'light_mode'}}
+            </i>
+
+            <div class="modes-container" [ngClass]="{'show': showModesContainer}">
+                <div class="mode" (click)="applyTheme('light_mode'); $event.stopPropagation();">
+                    <i class="material-icons mode-icon"> light_mode </i>
+                    <span>{{ 'MENU.LIGHT_MODE' | translate }}</span>
+                </div>
+                <div class="mode" (click)="applyTheme('dark_mode'); $event.stopPropagation();">
+                    <i class="material-icons mode-icon"> dark_mode </i>
+                    <span>{{ 'MENU.DARK_MODE' | translate }}</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="language-container" (click)="toggleLanguageDropdown()">
+            <i class="material-icons language-icon">language</i>
+            <div class="languages-container" [ngClass]="{'show': showLanguageDropdown}">
+                <div class="language-option" *ngFor="let lang of availableLanguages"
+                    (click)="changeLanguage(lang); $event.stopPropagation();"
+                    [class.active-language]="currentLanguage === lang">
+                    <span>{{ lang | uppercase }}</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="user-profile-container" (click)="toggleUserDropdown()">
+            <img [src]="userProfileImageUrl" alt="User Profile" class="user-avatar">
+            <div class="user-dropdown" [ngClass]="{'show': showUserDropdown}">
+                <div class="dropdown-item" (click)="navigateToProfile(); $event.stopPropagation();">
+                    <i class="material-icons">person</i>
+                    <span>{{ 'IDENTITY.PROFILE.MY_PROFILE' | translate }}</span>
+                </div>
+                <div class="dropdown-item" (click)="logout(); $event.stopPropagation();">
+                    <i class="material-icons">logout</i>
+                    <span>{{ 'AUTHENTICATION.COMMON.LOGOUT' | translate }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

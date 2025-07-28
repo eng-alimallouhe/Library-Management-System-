@@ -1,0 +1,65 @@
+/* src/app/components/hr/incentives/edit-incentive/edit-incentive.component.css */
+
+/* استخدام نفس أنماط المودال التي قدمتها */
+.update-department-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--backdrop-color);
+    /* تأكد من تعريف هذا المتغير */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+}
+
+.update-department-modal-content {
+    background-color: var(--secondary-background-color);
+    /* تأكد من تعريف هذا المتغير */
+    width: 50vw;
+    height: auto;
+    max-height: 98vh;
+    padding: 25px 30px;
+    border-radius: 10px;
+    max-width: 90%;
+    text-align: center;
+    color: var(--text-color);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.buttons-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.submit-wrapper{
+    width: 45%;
+}
+
+input[readonly]{
+    cursor:not-allowed;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .update-department-modal-content {
+        width: 98vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .buttons-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .submit-wrapper {
+        width: 100%;
+    }
+}

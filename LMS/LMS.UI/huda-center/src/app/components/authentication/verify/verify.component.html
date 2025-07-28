@@ -1,0 +1,71 @@
+<app-alert [(visible)]="alertVisible" [message]="alertMessage"></app-alert>
+
+
+<div class="ball-shape">
+    <div class="top-balls">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball last-ball"></div>
+        <div class="ball last-ball"></div>
+    </div>
+
+    <div class="bottom-balls">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball last-ball"></div>
+        <div class="ball last-ball"></div>
+    </div>
+</div>
+
+
+<div class="ball-container top-right-container">
+    <div class="ball"></div>
+</div>
+
+<div class="ball-container bottum-left-container">
+    <div class="ball"></div>
+</div>
+
+<div class="ball-container bottum-right-container">
+    <div class="ball"></div>
+</div>
+
+<div class="form-conatiner">
+    <div class="title-container title-container-normal">
+        <h1>{{ 'AUTHENTICATION.OTP_CODE.PAGE_TITLE' | translate }}</h1>
+        <p>{{ 'AUTHENTICATION.OTP_CODE.ENTER_CODE' | translate }}</p>
+    </div>
+
+    <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+        <div class="input-container">
+            <input type="email" formControlName="email" id="email" [readOnly]="true" placeholder=" ">
+            <label for="email">{{'AUTHENTICATION.COMMON.EMAIL' | translate }}</label>
+        </div>
+
+        <div class="input-container">
+            <input type="text" inputmode="numeric" pattern="[0-9]*" formControlName="code" id="code" maxlength="6"
+                placeholder=" " (keydown)="this.customValidators.allowOnlyNumbers($event)">
+            <label for="code">{{'AUTHENTICATION.OTP_CODE.OTP_CODE' | translate }}</label>
+
+            <span *ngIf="verifyForm.get('code')?.errors as errors">
+                <span class="error" *ngIf="(verifyForm.get('code')?.dirty) || isSubmited">
+                    {{this.customValidators.getFirstErrorMessage('code', errors) | translate }}
+                </span>
+            </span>
+        </div>
+
+        <div class="button-container">
+            <input type="submit" [disabled]="isLoading"
+                value="{{isLoading ? ('COMMON.PLEASE_WAIT' | translate) : ('AUTHENTICATION.OTP_CODE.VERIFY' | translate)}}">
+            <div *ngIf="isLoading" class="loader-container">
+                <app-loader type="circle" height="100%" messageKey="COMMON.LOADING"></app-loader>
+            </div>
+        </div>
+
+        <p class="link">
+            <a href="">{{'AUTHENTICATION.OTP_CODE.REQUEST_CODE' | translate }}</a>
+        </p>
+    </form>
+</div>

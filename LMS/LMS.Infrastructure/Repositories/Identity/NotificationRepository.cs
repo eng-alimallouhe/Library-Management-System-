@@ -1,4 +1,4 @@
-﻿using LMS.Domain.Identity.Models;
+﻿using LMS.Domain.Identity.Models.Notifications;
 using LMS.Infrastructure.DbContexts;
 
 namespace LMS.Infrastructure.Repositories.Identity

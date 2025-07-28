@@ -1,0 +1,25 @@
+<div class="inner-chart">
+    <h2 *ngIf="!isLoadingOrdersChart" class="chart-title">{{ 'CHARTS.ORDERS_CHART.ORDERS_CHART_TITLE' | translate }}</h2>
+    <app-loader *ngIf="isLoadingOrdersChart" type="circle">
+        <svg viewBox="25 25 50 50">
+            <circle r="20" cy="50" cx="50"></circle>
+        </svg>
+        <p>{{ 'DASHBOARD.LOADING_DATA' | translate }}</p>
+    </app-loader>
+
+    <ng-container *ngIf="ordersChartOptions; else noOrdersChartDataTemplate">
+        <apx-chart [chart]="ordersChartOptions.chart!" [series]="ordersChartOptions.series!"
+            [xaxis]="ordersChartOptions.xaxis!" [yaxis]="ordersChartOptions.yaxis!"
+            [dataLabels]="ordersChartOptions.dataLabels!" [grid]="ordersChartOptions.grid!"
+            [stroke]="ordersChartOptions.stroke!" [title]="ordersChartOptions.title!"
+            [tooltip]="ordersChartOptions.tooltip!" [plotOptions]="ordersChartOptions.plotOptions!"
+            [fill]="ordersChartOptions.fill!" [legend]="ordersChartOptions.legend!">
+        </apx-chart>
+    </ng-container>
+
+    <ng-template #noOrdersChartDataTemplate>
+        <div class="no-data-message">
+            <p>{{ 'CHARTS.NO_ORDERS_DATA' | translate }}</p>
+        </div>
+    </ng-template>
+</div>

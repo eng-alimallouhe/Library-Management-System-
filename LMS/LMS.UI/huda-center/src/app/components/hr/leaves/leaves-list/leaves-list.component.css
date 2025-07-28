@@ -1,0 +1,18 @@
+.page-content-wrapper {
+    display: flex;
+    padding: 20px 0;
+    width: 98%;
+    margin: 20px auto;
+    justify-content: space-evenly;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    gap: 20px;
+}
+
+/* الأنماط الخاصة بحاوية الجدول (employees-container) */
+.employees-container {
+    width: calc(100% - 300px);
+    flex-grow: 1;
+    position: relative;
+}

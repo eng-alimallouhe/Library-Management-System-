@@ -1,0 +1,77 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1203;
+}
+
+.modal-content {
+    background-color: var(--secondary-background-color);
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow-light);
+    max-width: 93%;
+    width: 400px;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+.actions-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.actions-wrapper button{
+    border: none;
+    padding: 10px 25px;
+    width: 45%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed) linear;
+}
+
+.cancel-btn {
+    background-color: var(--primary-color);
+    color: var(--primary-background-color);
+}
+
+.confirm-btn{
+    background-color: var(--error-color);
+    color: var(--primary-background-color);
+}
+
+button:hover{
+    transform: translateY(-2px);
+}
+
+button:active{
+    transform: scale(0.98);
+}

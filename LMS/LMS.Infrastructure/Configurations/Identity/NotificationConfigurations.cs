@@ -1,4 +1,5 @@
 ﻿using LMS.Domain.Identity.Models;
+using LMS.Domain.Identity.Models.Notifications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,14 +15,6 @@ namespace LMS.Infrastructure.Configurations.Users
 
             builder.Property(n => n.UserId)
                     .IsRequired();
-
-            builder.Property(n => n.Title)
-                    .IsRequired()
-                    .HasMaxLength(100);
-            
-            builder.Property(n => n.Message)
-                    .IsRequired()
-                    .HasMaxLength(255);
 
 
             builder.Property(n => n.RedirectUrl)

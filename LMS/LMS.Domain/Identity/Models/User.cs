@@ -1,4 +1,5 @@
 ﻿using LMS.Domain.Identity.Enums;
+using LMS.Domain.Identity.Models.Notifications;
 
 namespace LMS.Domain.Identity.Models
 {
@@ -13,7 +14,7 @@ namespace LMS.Domain.Identity.Models
         
         
         public required string FullName { get; set; }
-        public required string UserName { get; set; }
+        public string UserName { get; set; }
         public required string Email { get; set; }
         public required string PhoneNumber { get; set; }
         public string HashedPassword { get; set; }
@@ -46,12 +47,14 @@ namespace LMS.Domain.Identity.Models
         //Navigation Property:
         public Role Role { get; set; }
         public OtpCode? OtpCode { get; set; }
+        public RefreshToken RefreshToken { get; set; }
         public ICollection<Notification> Notifications { get; set; }
 
         public User()
         {
             UserId = Guid.NewGuid();
             HashedPassword = string.Empty;
+            UserName = string.Empty;
             ProfilePictureUrl = "https://i.imgur.com/YMoZhcC.jpeg";
             FailedLoginAttempts = 0;
             LastLogIn = DateTime.UtcNow;
@@ -59,6 +62,7 @@ namespace LMS.Domain.Identity.Models
             UpdatedAt = DateTime.UtcNow;
             Role = null!;
             Notifications = [];
+            RefreshToken = null!;
         }
     }
 

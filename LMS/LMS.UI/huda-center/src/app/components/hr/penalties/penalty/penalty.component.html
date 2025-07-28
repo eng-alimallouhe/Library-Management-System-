@@ -1,0 +1,91 @@
+<!-- src/app/components/hr/penalties/penalty-details/penalty-details.component.html -->
+
+<app-loader type="circle" *ngIf="isLoading"></app-loader>
+
+<div class="details-container" *ngIf="penaltyDetails; else notFound">
+    <h2 class="title-container">{{ 'HR.PENALTIES.DETAILS.TITLE' | translate }}</h2>
+
+    <div class="details-cards-wrapper">
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">person</i>
+                <span>{{ 'HR.PENALTIES.EMPLOYEE_NAME' | translate }}</span>
+            </div>
+            <span class="card-description">{{ penaltyDetails.employeeName }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">attach_money</i>
+                <span>{{ 'HR.PENALTIES.AMOUNT' | translate }}</span>
+            </div>
+            <span class="card-description">{{ penaltyDetails.amount | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">description</i>
+                <span>{{ 'HR.PENALTIES.REASON' | translate }}</span>
+            </div>
+            <span class="card-description">{{ penaltyDetails.reason }}</span>
+        </div>
+
+        <div class="infromation-card">
+            <div class="card-header">
+                <i class="material-icons icon">event</i>
+                <span>{{ 'HR.PENALTIES.DECISION_DATE' | translate }}</span>
+            </div>
+            <span class="card-description">{{ penaltyDetails.decisionDate | localDate }}</span>
+        </div>
+    </div>
+
+    <div class="actions-container">
+        <button class="action-button edit" (click)="onEdit()">
+            <i class="material-icons">edit</i> {{ 'COMMON.EDIT' | translate }}
+        </button>
+        <!-- زر الموافقة -->
+        <button class="action-button approve" (click)="onApprove()">
+            <i class="material-icons">check_circle</i> {{ 'COMMON.APPROVE' | translate }}
+        </button>
+        <!-- زر الرفض -->
+        <button class="action-button reject" (click)="onReject()">
+            <i class="material-icons">cancel</i> {{ 'COMMON.REJECT' | translate }}
+        </button>
+    </div>
+
+    <div class="decision-file-container" *ngIf="penaltyDetails.decisionFileUrl; else noDecisionFile">
+        <h3>{{ 'HR.PENALTIES.DECISION_FILE' | translate }}</h3>
+
+        <div class="actions-container">
+            <a [href]="downloadLinkSafeUrl" target="_blank" class="action-button" download>
+                <i class="material-icons">download</i> {{ 'COMMON.DOWNLOAD_FILE' | translate }}
+            </a>
+        </div>
+    </div>
+
+    <ng-template #noDecisionFile>
+        <div class="decision-file-container no-file">
+            <p>{{ 'HR.PENALTIES.DETAILS.NO_DECISION_FILE' | translate }}</p>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #notFound>
+    <div class="no-data-message">
+        <p *ngIf="!isLoading">{{ 'HR.PENALTIES.DETAILS.NOT_FOUND' | translate }}</p>
+    </div>
+</ng-template>
+
+<!-- مكون تعديل العقوبة (Edit Penalty Component) -->
+<app-edit-penalty [(visible)]="isPenaltyUpdateFormVisible" [penaltyId]="penaltyId!"
+    (penaltyUpdated)="onPenaltyUpdated()"></app-edit-penalty>
+
+<!-- مكون تأكيد الإجراء (Approve/Reject) -->
+<app-confirm-dialog [visible]="showConfirmActionDialog" [title]="confirmDialogTitle"
+    (confirm)="confirmPenaltyAction()" (cancel)="onCancelAction()">
+</app-confirm-dialog>
+
+<!-- مكون التنبيه (Alert) -->
+<app-alert [(visible)]="alertVisible" [message]="alertMessage" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>

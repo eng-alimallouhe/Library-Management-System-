@@ -1,0 +1,402 @@
+<!-- src/app/components/hr/employee/employee.component.html -->
+
+<app-confirm-dialog [visible]="showConfirm" (confirm)="deleteEmployee()" (cancel)="showConfirm = false">
+</app-confirm-dialog>
+
+<app-update-employee [(visible)]="isEmployeeUpdateFromVisible" [employeeId]="employeeId"></app-update-employee>
+
+<!-- مكون إضافة العقوبة الجديد -->
+<app-add-penalty [(visible)]="isAddPenaltyFormVisible" [employeeId]="employeeId" (penaltyAdded)="onPenaltyAdded()">
+</app-add-penalty>
+
+<app-add-incentive [(visible)]="isAddIncentiveFormVisible" [employeeId]="employeeId"
+    (incentiveAdded)="onIncentiveAdded()">
+</app-add-incentive>
+
+
+<!-- Alert Component for general messages in this component -->
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()"></app-alert>
+
+<app-loader type="circle" *ngIf="isLoadingEmployee"></app-loader>
+
+<div class="employee-details-wrapper" *ngIf="employee$ | async as employee">
+    <div class="details-container">
+        <div class="title-container">
+            <h2>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.GENERAL_INFORMATION' | translate}}</h2>
+        </div>
+        <div class="details-cards-wrapper">
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">person</i>
+                    <span>{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.NAME' | translate }}</span>
+                </div>
+                <span class="card-description">{{employee.fullName}}</span>
+            </div>
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">fingerprint</i>
+                    <span>{{ 'HR.EMPLOYEES.ID' | translate }}</span>
+                </div>
+                <span class="card-description">{{employee.employeeId}}</span>
+            </div>
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">attach_money</i>
+                    <span>{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.BASE_SALARY' | translate }}</span>
+                </div>
+                <span class="card-description">{{employee.baseSalary | currency:'USD':'symbol':'1.2-2'}}</span>
+            </div>
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">phone_enabled</i>
+                    <span>{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.PHONE_NUMBER' | translate }}</span>
+                </div>
+                <span class="card-description">{{employee.phoneNumber}}</span>
+            </div>
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">mail</i>
+                    <span>{{ 'HR.EMPLOYEES.NEW_EMPLOYEE.EMAIL' | translate }}</span>
+                </div>
+                <span class="card-description">{{employee.email}}</span>
+            </div>
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">date_range</i>
+                    <span>{{ 'HR.EMPLOYEES.HIRE_DATE' | translate }}</span>
+                </div>
+                <span class="card-description">{{employee.hireDate | localDate }}</span>
+            </div>
+            <div class="infromation-card">
+                <div class="card-header">
+                    <i class="material-icons">business</i>
+                    <span>{{ 'HR.EMPLOYEES.DEPARTMENT_NAME' | translate }}</span>
+                </div>
+                <span class="card-description">{{employee.currentDepartmentName}}</span>
+            </div>
+        </div>
+        <div class="actions-container">
+            <button class="action-button edit-button" (click)="onEdit()">
+                <i class="material-icons">edit</i> {{ 'COMMON.EDIT' | translate }}
+            </button>
+
+            <!-- زر إضافة عقوبة جديد -->
+            <button class="action-button add-penalty-button" (click)="onAddPenalty()">
+                <i class="material-icons">add</i> {{ 'HR.PENALTIES.ADD_PENALTY_BUTTON' | translate }}
+            </button>
+
+            <button class="action-button add-incentive-button" (click)="onAddIncentive()">
+                <i class="material-icons">add</i> {{ 'HR.INCENTIVES.ADD_INCENTIVE_BUTTON' | translate }}
+            </button>
+
+            <button class="action-button delete-button" (click)="onDelete()">
+                <i class="material-icons">delete</i> {{ 'COMMON.DELETE' | translate }}
+            </button>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.HISTORY_TITLE' | translate }}</h2>
+        </div>
+        <div class="table-container">
+            <div *ngIf="employee.departmentsHistory && employee.departmentsHistory.length > 0; else noHistoryFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DEPARTMENT' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.JOIN_DATE' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.LEAVE_DATE' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.IS_CURRENT' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.IS_MANAGER' | translate }}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let history of employee.departmentsHistory">
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DEPARTMENT' | translate }}">{{
+                                history.departmentName }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.JOIN_DATE' | translate }}">{{
+                                history.joinDate | localDate }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.LEAVE_DATE' | translate }}">
+                                {{ history.leaveDate ? (history.leaveDate | localDate) : ('COMMON.ON_GOING' | translate)
+                                }}
+                            </td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.IS_CURRENT' | translate }}">{{
+                                history.isCurrent ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.IS_MANAGER' | translate }}">{{
+                                history.isManager ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noHistoryFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.FINANCIAL_TITLE' | translate }}</h2>
+        </div>
+
+        <div class="table-container">
+            <div *ngIf="employee.employeeFinanical && employee.employeeFinanical.length > 0; else noFinancialFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.AMOUNT' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DATE' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.Source' | translate }}</th>
+                            <th>{{ 'COMMON.ACTIONS' | translate }}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let finacial of employee.employeeFinanical">
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.AMOUNT' | translate }}">{{
+                                finacial.amount | currency:'USD':'symbol':'1.2-2' }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DATE' | translate }}">{{
+                                finacial.date | localDate }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.Source' | translate }}">
+                                {{ ( 'SERVICES.' + (finacial.service | uppercase)) | translate }}
+                            </td>
+                            <td attr.data-label="{{ 'COMMON.ACTIONS' | translate }}" class="actions-cell">
+                                <button class="action-button view-button"
+                                    [routerLink]="['/app/accounting/revenues/', finacial.revenueId]">
+                                    <i class="material-icons">visibility</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noFinancialFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.ATTENDANCE_TITLE' | translate }}</h2>
+        </div>
+
+        <div class="table-container">
+            <div *ngIf="employee.attendances && employee.attendances.length > 0; else noAttendanceFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DATE' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.TIME_IN' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.TIME_OUT' | translate }}</th>
+                            <th>{{ 'COMMON.DAY' | translate }}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let attendance of employee.attendances">
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DATE' | translate }}">{{
+                                attendance.date | localDate}}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.TIME_IN' | translate }}">
+                                {{ attendance.timeIn? (attendance.timeIn | slice:0:5) : ('HR.ATTENDANCES.ABSENT' |
+                                translate ) }}
+                            </td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.TIME_OUT' | translate }}">
+                                {{ attendance.timeOut? (attendance.timeOut | slice:0:5) : ('HR.ATTENDANCES.ABSENT' |
+                                translate ) }}
+                            </td>
+                            <td attr.data-label="{{ 'COMMON.DAY' | translate }}"> {{ ( 'DAY_OF_WEEKS.' + attendance.day)
+                                | translate}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noAttendanceFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.PENALTIES_TITLE' | translate }}</h2>
+        </div>
+
+        <div class="table-container">
+            <!-- تصحيح: استخدام employee.penalties بدلاً من employee.employeeFinanical -->
+            <div *ngIf="employee.penalties && employee.penalties.length > 0; else noPenaltiesFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.PENALTIES.AMOUNT' | translate }}</th>
+                            <th>{{ 'HR.PENALTIES.REASON' | translate }}</th>
+                            <th>{{ 'HR.PENALTIES.DATE' | translate }}</th>
+                            <th>{{ 'HR.PENALTIES.IS_APPLIED' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let penalty of employee.penalties">
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.AMOUNT' | translate }}">{{
+                                penalty.amount | currency:'USD':'symbol':'1.2-2' }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.REASON' | translate }}">{{
+                                penalty.reason }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DATE' | translate }}">{{
+                                penalty.decisionDate |
+                                localDate }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.PENALTIES.IS_APPLIED' | translate }}">
+                                {{ penalty.isApplied ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noPenaltiesFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.INCENTIVES_TITLE' | translate }}</h2>
+        </div>
+
+        <div class="table-container">
+            <!-- تصحيح: استخدام employee.incentives بدلاً من employee.employeeFinanical -->
+            <div *ngIf="employee.incentives && employee.incentives.length > 0; else noIncentivesFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.AMOUNT' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.REASON' | translate }}</th>
+                            <th>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DATE' | translate }}</th>
+                            <th>{{ 'HR.INCENTIVES.IS_PAID' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let incentive of employee.incentives">
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.AMOUNT' | translate }}">{{
+                                incentive.amount | currency:'USD':'symbol':'1.2-2' }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.REASON' | translate }}">{{
+                                incentive.reason }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.DATE' | translate }}">{{
+                                incentive.decisionDate |
+                                localDate }}</td>
+                            <td attr.data-label="{{ 'HR.EMPLOYEES.PENALTIES.IS_APPLIED' | translate }}">
+                                {{ incentive.isPaid ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noIncentivesFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.LEAVES_TITLE' | translate }}</h2>
+        </div>
+
+        <div class="table-container">
+            <div *ngIf="employee.leaves && employee.leaves.length > 0; else noLeavesFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.LEAVES.START_DATE' | translate }}</th>
+                            <th>{{ 'HR.LEAVES.END_DATE' | translate }}</th>
+                            <th>{{ 'HR.LEAVES.TYPE' | translate }}</th>
+                            <th>{{ 'HR.LEAVES.STATUS' | translate }}</th>
+                            <th>{{ 'HR.LEAVES.IS_PAID' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let leave of employee.leaves">
+                            <td attr.data-label="{{ 'HR.LEAVES.START_DATE' | translate }}">{{ leave.startDate |
+                                localDate }}
+                            </td>
+                            <td attr.data-label="{{ 'HR.LEAVES.END_DATE' | translate }}">{{ leave.endDate | localDate }}
+                            </td>
+                            <td attr.data-label="{{ 'HR.LEAVES.TYPE' | translate }}">
+                                {{ ('LEAVE_TYPES.' + leave.leaveType) | translate }}
+                            </td>
+                            <td attr.data-label="{{ 'HR.LEAVES.STATUS' | translate }}">
+                                {{ ('LEAVE_STATUSES.' + leave.leaveStatus) | translate }}
+                            </td>
+                            <td attr.data-label="{{ 'HR.LEAVES.IS_PAID' | translate }}">
+                                {{ leave.isPaid ? ('COMMON.YES' | translate) : ('COMMON.NO' | translate) }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noLeavesFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <div class="title-container">
+            <h2>{{ 'HR.EMPLOYEES.EMPLOYEE_DETAILS.SALARIES_TITLE' | translate }}</h2>
+        </div>
+
+        <div class="table-container">
+            <div *ngIf="employee.salaries && employee.salaries.length > 0; else noSalariesFounded">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'HR.SALARIES.MONTH' | translate }}</th>
+                            <th>{{ 'HR.SALARIES.YEAR' | translate }}</th>
+                            <th>{{ 'HR.SALARIES.BASE_SALARY' | translate }}</th>
+                            <th>{{ 'HR.SALARIES.TOTAL_INCENTIVES' | translate }}</th>
+                            <th>{{ 'HR.SALARIES.TOTAL_PENALTIES' | translate }}</th>
+                            <th>{{ 'HR.SALARIES.NET_SALARY' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let salary of employee.salaries">
+                            <td attr.data-label="{{ 'HR.SALARIES.MONTH' | translate }}">
+                                {{ ('MONTHS.' + salary.month) | translate }}
+                            </td>
+                            <td attr.data-label="{{ 'HR.SALARIES.YEAR' | translate }}">{{ salary.year }}</td>
+                            <td attr.data-label="{{ 'HR.SALARIES.BASE_SALARY' | translate }}">{{ salary.baseSalary |
+                                currency:'USD':'symbol':'1.2-2' }}</td>
+                            <td attr.data-label="{{ 'HR.SALARIES.TOTAL_INCENTIVES' | translate }}">{{
+                                salary.totalIncentives | currency:'USD':'symbol':'1.2-2'
+                                }}</td>
+                            <td attr.data-label="{{ 'HR.SALARIES.TOTAL_PENALTIES' | translate }}">{{
+                                salary.totalPenalties | currency:'USD':'symbol':'1.2-2'
+                                }}</td>
+                            <td attr.data-label="{{ 'HR.SALARIES.NET_SALARY' | translate }}">{{ (salary.baseSalary +
+                                salary.totalIncentives - salary.totalPenalties) | currency:'USD':'symbol':'1.2-2' }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noSalariesFounded>
+                <div class="no-data-message">
+                    <p>{{ 'COMMON.NO_DATA_FOUND' | translate }}</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

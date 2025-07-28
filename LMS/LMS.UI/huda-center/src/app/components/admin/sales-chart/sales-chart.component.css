@@ -1,0 +1,6 @@
+.inner-chart h2{
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}

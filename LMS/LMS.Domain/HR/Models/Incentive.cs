@@ -15,6 +15,8 @@
         public string DecisionFileUrl { get; set; } = string.Empty;
         public DateTime DecisionDate { get; set; }
         public bool IsPaid { get; set; }
+        public bool IsApproved { get; set; } = false;
+
 
         //Soft Delete
         public bool IsActive { get; set; }

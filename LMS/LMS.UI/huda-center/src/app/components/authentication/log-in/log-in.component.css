@@ -1,0 +1,79 @@
+.top-curve {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: clamp(150px, 20vw, 350px);
+    height: clamp(150px, 20vw, 350px);
+    background-color: var(--primary-color);
+    clip-path: path('M0.0 0 H350 V350 Q300 0 0 0');
+    filter: drop-shadow(-10px 10px 15px rgba(0, 0, 0, 0.4));
+    box-shadow: inset 15px -15px 30px rgba(0, 0, 0, 0.15);
+    z-index: -1;
+}
+
+
+
+.books-img {
+    position: fixed;
+    left: 2vw;
+    top: 20vh;
+    width: clamp(250px, 30vw, 450px);
+    height: auto;
+    z-index: -1;
+}
+
+
+
+.peper1,
+.peper2 {
+    width: clamp(100px, 15vw, 200px);
+    height: auto;
+    position: fixed;
+    z-index: -1;
+}
+
+
+.peper1 {
+    top: 3vh;
+    left: 15vw;
+    transform: rotateZ(60deg);
+}
+
+
+.peper2 {
+    top: 25vh;
+    right: 7vw;
+}
+
+
+
+.curved-line {
+    width: clamp(150px, 20vw, 300px);
+    height: auto;
+    position: fixed;
+    bottom: 1vh;
+    right: 3vw;
+    z-index: -1;
+}
+
+
+.parent-loader{
+    width: 100%;
+}
+
+@media (max-width: 490px) {
+    .books-img{
+        display: none;
+    }
+
+    .peper1{
+        top: 3vh;
+        left: 5vw;
+    }
+
+    .peper2{
+        top: 80vh;
+        right: initial;
+        left: 2vw;
+    }
+}

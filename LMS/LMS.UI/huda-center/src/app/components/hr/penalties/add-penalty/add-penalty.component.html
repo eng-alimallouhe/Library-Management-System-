@@ -1,0 +1,73 @@
+<!-- src/app/components/hr/penalties/add-penalty/add-penalty.component.html -->
+
+<app-alert [(visible)]="alertVisible" [message]="alertMessage | translate" [isSuccess]="isSuccessAlert"
+    (alertClosed)="onAlertClosed()">
+</app-alert>
+
+<div class="add-department-modal-backdrop" *ngIf="visible">
+    <div class="add-department-modal-content">
+        <div class="form-conatiner">
+            <div class="title-container title-container-normal">
+                <h1>{{ 'HR.PENALTIES.NEW_PENALTY.TITLE' | translate }}</h1>
+                <p>{{ 'HR.PENALTIES.NEW_PENALTY.DESCRIPTION' | translate }}</p>
+            </div>
+
+            <app-loader type="circle" *ngIf="isLoadingResult"></app-loader>
+
+            <form [formGroup]="addForm" (ngSubmit)="onSubmit()" *ngIf="!isLoadingResult">
+                <div class="input-container">
+                    <input type="text" id="employeeIdDisplay" [value]="employeeId" hidden placeholder=" " readonly>
+                </div>
+
+                <div class="input-container">
+                    <input type="number" id="amount" formControlName="amount" placeholder=" ">
+                    <label for="amount">{{ 'HR.PENALTIES.AMOUNT' | translate }}</label>
+                    <span class="error" *ngIf="showError('amount')">
+                        <span *ngIf="getControl('amount')?.errors?.['required']">
+                            {{ 'VALIDATION.AMOUNT_REQUIRED' | translate }}
+                        </span>
+                        <span *ngIf="getControl('amount')?.errors?.['min']">
+                            {{ 'VALIDATION.AMOUNT_MIN' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="input-container">
+                    <textarea id="reason" formControlName="reason" rows="3" placeholder=" "></textarea>
+                    <label for="reason">{{ 'HR.PENALTIES.REASON' | translate }}</label>
+                    <span class="error" *ngIf="showError('reason')">
+                        <span *ngIf="getControl('reason')?.errors?.['required']">
+                            {{ 'VALIDATION.REASON_REQUIRED' | translate }}
+                        </span>
+                    </span>
+                </div>
+
+                <div class="custom-file-wrapper">
+                    <label for="decisionFileInput" class="custom-file-label">
+                        <i class="material-icons">upload</i>
+                        <span class="file-text">{{ decisionFile?.name ||
+                            ('HR.PENALTIES.DECISION_FILE_UPLOAD_PLACEHOLDER_REQUIRED' | translate) }}</span>
+                    </label>
+                    <input type="file" id="decisionFileInput" (change)="onDecisionFileSelected($event)"
+                        accept="application/pdf" />
+                </div>
+                <span class="error" *ngIf="isSubmitted && !decisionFile">
+                    {{ 'VALIDATION.DECISION_FILE_REQUIRED' | translate }}
+                </span>
+
+                <div class="buttons-container">
+                    <div class="submit-wrapper">
+                        <input type="button" (click)="closeModal()" value="{{'COMMON.CLOSE' | translate }}">
+                    </div>
+                    <div class="submit-wrapper">
+                        <div class="button-container">
+                            <input type="submit" [disabled]="isLoadingResult"
+                                value="{{isLoadingResult ? ('COMMON.PLEASE_WAIT' | translate) : ('COMMON.SUBMIT' | translate)}}">
+                            <div class="line-loader" *ngIf="isLoadingResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
